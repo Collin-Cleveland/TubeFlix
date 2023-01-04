@@ -1,6 +1,6 @@
 # TubeFlix
 
-Users not logged in will be able to browse and watch videos listed on the web application home page. Once registered/signed in, users will be able to like, dislike, comment and upload videos which can be displayed on profile page. Home page may also include tabs in the header to toggle between types of videos (music videos, podcasts, movie trailers, etc…). 
+TubeFlix is a video streaming web application that will allow users to view, post and interact with videos. Users not logged in will be able to browse and watch videos listed on the web application home page. Once registered/signed in, users will be able to like, dislike, comment and upload videos which can be displayed on profile page. Home page may also include tabs in the header to toggle between types of videos (music videos, podcasts, movie trailers, etc…). 
 
 Front-end: A React-based web application that allows users to browse and watch videos. The front-end would make API calls to the back-end to retrieve and display data.
 

@@ -1,0 +1,30 @@
+entity VideoUser {}
+
+entity Video {
+    title String
+    description String
+    likes Long
+    dislikes Long
+    uploadDate LocalDate
+}
+
+entity Comment {
+	timeStamp Instant
+    body String
+    likes Long
+    dislikes Long
+}
+
+relationship OneToMany {
+	VideoUser{comment} to Comment{videoUser}
+    Video{comment} to Comment{video}
+    VideoUser{videos} to Video{uploader}
+}
+
+relationship OneToOne {
+    VideoUser{internalUser} to User
+}
+
+paginate Video with infinite-scroll
+
+service all with serviceImpl

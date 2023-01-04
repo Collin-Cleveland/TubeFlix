@@ -1,3 +1,15 @@
+application {
+    config {
+        baseName groupProject,
+        packageName rocks.zipcode,
+        applicationType monolith,
+        authenticationType jwt,
+        prodDatabaseType mysql,
+        clientFramework react
+    }
+    entities *
+}
+
 entity VideoUser {}
 
 entity Video {
@@ -27,4 +39,5 @@ relationship OneToOne {
 
 paginate Video with infinite-scroll
 
-service all with serviceImpl
+dto * with mapstruct
+service * with serviceImpl

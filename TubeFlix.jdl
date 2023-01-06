@@ -10,11 +10,13 @@ application {
     entities *
 }
 
-entity VideoUser {}
+entity VideoUser {
+    userName String required
+}
 
 entity Video {
-    videoLink String
-    title String
+    videoLink String required
+    title String required
     description String
     likes Long
     dislikes Long
@@ -22,7 +24,7 @@ entity Video {
 }
 
 entity Comment {
-	timeStamp Instant
+	commentDate LocalDate
     body String
     likes Long
     dislikes Long

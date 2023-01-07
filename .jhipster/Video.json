@@ -1,6 +1,6 @@
 {
   "applications": ["groupProject"],
-  "changelogDate": "20230106144116",
+  "changelogDate": "20230107204725",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "video",
@@ -20,14 +20,6 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "likes",
-      "fieldType": "Long"
-    },
-    {
-      "fieldName": "dislikes",
-      "fieldType": "Long"
-    },
-    {
       "fieldName": "uploadDate",
       "fieldType": "LocalDate"
     }
@@ -39,16 +31,16 @@
   "readOnly": false,
   "relationships": [
     {
+      "otherEntityName": "videoUser",
+      "otherEntityRelationshipName": "video",
+      "relationshipName": "uploader",
+      "relationshipType": "many-to-one"
+    },
+    {
       "otherEntityName": "comment",
       "otherEntityRelationshipName": "video",
       "relationshipName": "comment",
       "relationshipType": "one-to-many"
-    },
-    {
-      "otherEntityName": "videoUser",
-      "otherEntityRelationshipName": "videos",
-      "relationshipName": "uploader",
-      "relationshipType": "many-to-one"
     }
   ],
   "service": "serviceClass"

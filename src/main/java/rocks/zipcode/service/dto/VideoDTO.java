@@ -21,10 +21,6 @@ public class VideoDTO implements Serializable {
 
     private String description;
 
-    private Long likes;
-
-    private Long dislikes;
-
     private LocalDate uploadDate;
 
     private VideoUserDTO uploader;
@@ -59,22 +55,6 @@ public class VideoDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Long getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Long likes) {
-        this.likes = likes;
-    }
-
-    public Long getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(Long dislikes) {
-        this.dislikes = dislikes;
     }
 
     public LocalDate getUploadDate() {
@@ -122,8 +102,6 @@ public class VideoDTO implements Serializable {
             ", videoLink='" + getVideoLink() + "'" +
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
-            ", likes=" + getLikes() +
-            ", dislikes=" + getDislikes() +
             ", uploadDate='" + getUploadDate() + "'" +
             ", uploader=" + getUploader() +
             "}";

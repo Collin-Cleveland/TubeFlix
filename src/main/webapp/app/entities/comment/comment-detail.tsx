@@ -47,25 +47,13 @@ export const CommentDetail = () => {
           </dt>
           <dd>{commentEntity.body}</dd>
           <dt>
-            <span id="likes">
-              <Translate contentKey="groupProjectApp.comment.likes">Likes</Translate>
-            </span>
+            <Translate contentKey="groupProjectApp.comment.video">Video</Translate>
           </dt>
-          <dd>{commentEntity.likes}</dd>
-          <dt>
-            <span id="dislikes">
-              <Translate contentKey="groupProjectApp.comment.dislikes">Dislikes</Translate>
-            </span>
-          </dt>
-          <dd>{commentEntity.dislikes}</dd>
+          <dd>{commentEntity.video ? commentEntity.video.id : ''}</dd>
           <dt>
             <Translate contentKey="groupProjectApp.comment.videoUser">Video User</Translate>
           </dt>
           <dd>{commentEntity.videoUser ? commentEntity.videoUser.id : ''}</dd>
-          <dt>
-            <Translate contentKey="groupProjectApp.comment.video">Video</Translate>
-          </dt>
-          <dd>{commentEntity.video ? commentEntity.video.id : ''}</dd>
         </dl>
         <Button tag={Link} to="/comment" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}

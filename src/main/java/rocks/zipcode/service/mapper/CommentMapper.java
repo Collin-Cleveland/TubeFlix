@@ -13,17 +13,17 @@ import rocks.zipcode.service.dto.VideoUserDTO;
  */
 @Mapper(componentModel = "spring")
 public interface CommentMapper extends EntityMapper<CommentDTO, Comment> {
-    @Mapping(target = "videoUser", source = "videoUser", qualifiedByName = "videoUserId")
     @Mapping(target = "video", source = "video", qualifiedByName = "videoId")
+    @Mapping(target = "videoUser", source = "videoUser", qualifiedByName = "videoUserId")
     CommentDTO toDto(Comment s);
-
-    @Named("videoUserId")
-    @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
-    VideoUserDTO toDtoVideoUserId(VideoUser videoUser);
 
     @Named("videoId")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     VideoDTO toDtoVideoId(Video video);
+
+    @Named("videoUserId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    VideoUserDTO toDtoVideoUserId(VideoUser videoUser);
 }

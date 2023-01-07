@@ -16,13 +16,9 @@ public class CommentDTO implements Serializable {
 
     private String body;
 
-    private Long likes;
-
-    private Long dislikes;
+    private VideoDTO video;
 
     private VideoUserDTO videoUser;
-
-    private VideoDTO video;
 
     public Long getId() {
         return id;
@@ -48,20 +44,12 @@ public class CommentDTO implements Serializable {
         this.body = body;
     }
 
-    public Long getLikes() {
-        return likes;
+    public VideoDTO getVideo() {
+        return video;
     }
 
-    public void setLikes(Long likes) {
-        this.likes = likes;
-    }
-
-    public Long getDislikes() {
-        return dislikes;
-    }
-
-    public void setDislikes(Long dislikes) {
-        this.dislikes = dislikes;
+    public void setVideo(VideoDTO video) {
+        this.video = video;
     }
 
     public VideoUserDTO getVideoUser() {
@@ -70,14 +58,6 @@ public class CommentDTO implements Serializable {
 
     public void setVideoUser(VideoUserDTO videoUser) {
         this.videoUser = videoUser;
-    }
-
-    public VideoDTO getVideo() {
-        return video;
-    }
-
-    public void setVideo(VideoDTO video) {
-        this.video = video;
     }
 
     @Override
@@ -108,10 +88,8 @@ public class CommentDTO implements Serializable {
             "id=" + getId() +
             ", commentDate='" + getCommentDate() + "'" +
             ", body='" + getBody() + "'" +
-            ", likes=" + getLikes() +
-            ", dislikes=" + getDislikes() +
-            ", videoUser=" + getVideoUser() +
             ", video=" + getVideo() +
+            ", videoUser=" + getVideoUser() +
             "}";
     }
 }

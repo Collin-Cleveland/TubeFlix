@@ -20,8 +20,9 @@
       "id": "ID",
       "userName": "User Name",
       "internalUser": "Internal User",
-      "comment": "Comment",
-      "videos": "Videos"
+      "video": "Video",
+      "like": "Like",
+      "comment": "Comment"
     }
   }
 }

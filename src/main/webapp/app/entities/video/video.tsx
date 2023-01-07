@@ -134,12 +134,6 @@ export const Video = () => {
                   <th className="hand" onClick={sort('description')}>
                     <Translate contentKey="groupProjectApp.video.description">Description</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('likes')}>
-                    <Translate contentKey="groupProjectApp.video.likes">Likes</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
-                  <th className="hand" onClick={sort('dislikes')}>
-                    <Translate contentKey="groupProjectApp.video.dislikes">Dislikes</Translate> <FontAwesomeIcon icon="sort" />
-                  </th>
                   <th className="hand" onClick={sort('uploadDate')}>
                     <Translate contentKey="groupProjectApp.video.uploadDate">Upload Date</Translate> <FontAwesomeIcon icon="sort" />
                   </th>
@@ -160,8 +154,6 @@ export const Video = () => {
                     <td>{video.videoLink}</td>
                     <td>{video.title}</td>
                     <td>{video.description}</td>
-                    <td>{video.likes}</td>
-                    <td>{video.dislikes}</td>
                     <td>{video.uploadDate ? <TextFormat type="date" value={video.uploadDate} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
                     <td>{video.uploader ? <Link to={`/video-user/${video.uploader.id}`}>{video.uploader.id}</Link> : ''}</td>
                     <td className="text-end">

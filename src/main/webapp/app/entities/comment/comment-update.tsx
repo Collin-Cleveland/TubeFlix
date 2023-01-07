@@ -8,10 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IVideoUser } from 'app/shared/model/video-user.model';
-import { getEntities as getVideoUsers } from 'app/entities/video-user/video-user.reducer';
 import { IVideo } from 'app/shared/model/video.model';
 import { getEntities as getVideos } from 'app/entities/video/video.reducer';
+import { IVideoUser } from 'app/shared/model/video-user.model';
+import { getEntities as getVideoUsers } from 'app/entities/video-user/video-user.reducer';
 import { IComment } from 'app/shared/model/comment.model';
 import { getEntity, updateEntity, createEntity, reset } from './comment.reducer';
 
@@ -23,8 +23,8 @@ export const CommentUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const videoUsers = useAppSelector(state => state.videoUser.entities);
   const videos = useAppSelector(state => state.video.entities);
+  const videoUsers = useAppSelector(state => state.videoUser.entities);
   const commentEntity = useAppSelector(state => state.comment.entity);
   const loading = useAppSelector(state => state.comment.loading);
   const updating = useAppSelector(state => state.comment.updating);
@@ -41,8 +41,8 @@ export const CommentUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getVideoUsers({}));
     dispatch(getVideos({}));
+    dispatch(getVideoUsers({}));
   }, []);
 
   useEffect(() => {
@@ -55,8 +55,8 @@ export const CommentUpdate = () => {
     const entity = {
       ...commentEntity,
       ...values,
-      videoUser: videoUsers.find(it => it.id.toString() === values.videoUser.toString()),
       video: videos.find(it => it.id.toString() === values.video.toString()),
+      videoUser: videoUsers.find(it => it.id.toString() === values.videoUser.toString()),
     };
 
     if (isNew) {
@@ -71,8 +71,8 @@ export const CommentUpdate = () => {
       ? {}
       : {
           ...commentEntity,
-          videoUser: commentEntity?.videoUser?.id,
           video: commentEntity?.video?.id,
+          videoUser: commentEntity?.videoUser?.id,
         };
 
   return (
@@ -109,19 +109,21 @@ export const CommentUpdate = () => {
               />
               <ValidatedField label={translate('groupProjectApp.comment.body')} id="comment-body" name="body" data-cy="body" type="text" />
               <ValidatedField
-                label={translate('groupProjectApp.comment.likes')}
-                id="comment-likes"
-                name="likes"
-                data-cy="likes"
-                type="text"
-              />
-              <ValidatedField
-                label={translate('groupProjectApp.comment.dislikes')}
-                id="comment-dislikes"
-                name="dislikes"
-                data-cy="dislikes"
-                type="text"
-              />
+                id="comment-video"
+                name="video"
+                data-cy="video"
+                label={translate('groupProjectApp.comment.video')}
+                type="select"
+              >
+                <option value="" key="0" />
+                {videos
+                  ? videos.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <ValidatedField
                 id="comment-videoUser"
                 name="videoUser"
@@ -132,22 +134,6 @@ export const CommentUpdate = () => {
                 <option value="" key="0" />
                 {videoUsers
                   ? videoUsers.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="comment-video"
-                name="video"
-                data-cy="video"
-                label={translate('groupProjectApp.comment.video')}
-                type="select"
-              >
-                <option value="" key="0" />
-                {videos
-                  ? videos.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
                       </option>

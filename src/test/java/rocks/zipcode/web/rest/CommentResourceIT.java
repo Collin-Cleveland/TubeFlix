@@ -39,12 +39,6 @@ class CommentResourceIT {
     private static final String DEFAULT_BODY = "AAAAAAAAAA";
     private static final String UPDATED_BODY = "BBBBBBBBBB";
 
-    private static final Long DEFAULT_LIKES = 1L;
-    private static final Long UPDATED_LIKES = 2L;
-
-    private static final Long DEFAULT_DISLIKES = 1L;
-    private static final Long UPDATED_DISLIKES = 2L;
-
     private static final String ENTITY_API_URL = "/api/comments";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -72,11 +66,7 @@ class CommentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Comment createEntity(EntityManager em) {
-        Comment comment = new Comment()
-            .commentDate(DEFAULT_COMMENT_DATE)
-            .body(DEFAULT_BODY)
-            .likes(DEFAULT_LIKES)
-            .dislikes(DEFAULT_DISLIKES);
+        Comment comment = new Comment().commentDate(DEFAULT_COMMENT_DATE).body(DEFAULT_BODY);
         return comment;
     }
 
@@ -87,11 +77,7 @@ class CommentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Comment createUpdatedEntity(EntityManager em) {
-        Comment comment = new Comment()
-            .commentDate(UPDATED_COMMENT_DATE)
-            .body(UPDATED_BODY)
-            .likes(UPDATED_LIKES)
-            .dislikes(UPDATED_DISLIKES);
+        Comment comment = new Comment().commentDate(UPDATED_COMMENT_DATE).body(UPDATED_BODY);
         return comment;
     }
 
@@ -116,8 +102,6 @@ class CommentResourceIT {
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getCommentDate()).isEqualTo(DEFAULT_COMMENT_DATE);
         assertThat(testComment.getBody()).isEqualTo(DEFAULT_BODY);
-        assertThat(testComment.getLikes()).isEqualTo(DEFAULT_LIKES);
-        assertThat(testComment.getDislikes()).isEqualTo(DEFAULT_DISLIKES);
     }
 
     @Test
@@ -152,9 +136,7 @@ class CommentResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(comment.getId().intValue())))
             .andExpect(jsonPath("$.[*].commentDate").value(hasItem(DEFAULT_COMMENT_DATE.toString())))
-            .andExpect(jsonPath("$.[*].body").value(hasItem(DEFAULT_BODY)))
-            .andExpect(jsonPath("$.[*].likes").value(hasItem(DEFAULT_LIKES.intValue())))
-            .andExpect(jsonPath("$.[*].dislikes").value(hasItem(DEFAULT_DISLIKES.intValue())));
+            .andExpect(jsonPath("$.[*].body").value(hasItem(DEFAULT_BODY)));
     }
 
     @Test
@@ -170,9 +152,7 @@ class CommentResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(comment.getId().intValue()))
             .andExpect(jsonPath("$.commentDate").value(DEFAULT_COMMENT_DATE.toString()))
-            .andExpect(jsonPath("$.body").value(DEFAULT_BODY))
-            .andExpect(jsonPath("$.likes").value(DEFAULT_LIKES.intValue()))
-            .andExpect(jsonPath("$.dislikes").value(DEFAULT_DISLIKES.intValue()));
+            .andExpect(jsonPath("$.body").value(DEFAULT_BODY));
     }
 
     @Test
@@ -194,7 +174,7 @@ class CommentResourceIT {
         Comment updatedComment = commentRepository.findById(comment.getId()).get();
         // Disconnect from session so that the updates on updatedComment are not directly saved in db
         em.detach(updatedComment);
-        updatedComment.commentDate(UPDATED_COMMENT_DATE).body(UPDATED_BODY).likes(UPDATED_LIKES).dislikes(UPDATED_DISLIKES);
+        updatedComment.commentDate(UPDATED_COMMENT_DATE).body(UPDATED_BODY);
         CommentDTO commentDTO = commentMapper.toDto(updatedComment);
 
         restCommentMockMvc
@@ -211,8 +191,6 @@ class CommentResourceIT {
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getCommentDate()).isEqualTo(UPDATED_COMMENT_DATE);
         assertThat(testComment.getBody()).isEqualTo(UPDATED_BODY);
-        assertThat(testComment.getLikes()).isEqualTo(UPDATED_LIKES);
-        assertThat(testComment.getDislikes()).isEqualTo(UPDATED_DISLIKES);
     }
 
     @Test
@@ -292,7 +270,7 @@ class CommentResourceIT {
         Comment partialUpdatedComment = new Comment();
         partialUpdatedComment.setId(comment.getId());
 
-        partialUpdatedComment.commentDate(UPDATED_COMMENT_DATE).likes(UPDATED_LIKES).dislikes(UPDATED_DISLIKES);
+        partialUpdatedComment.commentDate(UPDATED_COMMENT_DATE);
 
         restCommentMockMvc
             .perform(
@@ -308,8 +286,6 @@ class CommentResourceIT {
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getCommentDate()).isEqualTo(UPDATED_COMMENT_DATE);
         assertThat(testComment.getBody()).isEqualTo(DEFAULT_BODY);
-        assertThat(testComment.getLikes()).isEqualTo(UPDATED_LIKES);
-        assertThat(testComment.getDislikes()).isEqualTo(UPDATED_DISLIKES);
     }
 
     @Test
@@ -324,7 +300,7 @@ class CommentResourceIT {
         Comment partialUpdatedComment = new Comment();
         partialUpdatedComment.setId(comment.getId());
 
-        partialUpdatedComment.commentDate(UPDATED_COMMENT_DATE).body(UPDATED_BODY).likes(UPDATED_LIKES).dislikes(UPDATED_DISLIKES);
+        partialUpdatedComment.commentDate(UPDATED_COMMENT_DATE).body(UPDATED_BODY);
 
         restCommentMockMvc
             .perform(
@@ -340,8 +316,6 @@ class CommentResourceIT {
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getCommentDate()).isEqualTo(UPDATED_COMMENT_DATE);
         assertThat(testComment.getBody()).isEqualTo(UPDATED_BODY);
-        assertThat(testComment.getLikes()).isEqualTo(UPDATED_LIKES);
-        assertThat(testComment.getDislikes()).isEqualTo(UPDATED_DISLIKES);
     }
 
     @Test

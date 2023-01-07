@@ -119,14 +119,6 @@ export const VideoUpdate = () => {
                 data-cy="description"
                 type="text"
               />
-              <ValidatedField label={translate('groupProjectApp.video.likes')} id="video-likes" name="likes" data-cy="likes" type="text" />
-              <ValidatedField
-                label={translate('groupProjectApp.video.dislikes')}
-                id="video-dislikes"
-                name="dislikes"
-                data-cy="dislikes"
-                type="text"
-              />
               <ValidatedField
                 label={translate('groupProjectApp.video.uploadDate')}
                 id="video-uploadDate"

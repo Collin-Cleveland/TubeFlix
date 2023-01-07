@@ -51,18 +51,6 @@ export const VideoDetail = () => {
           </dt>
           <dd>{videoEntity.description}</dd>
           <dt>
-            <span id="likes">
-              <Translate contentKey="groupProjectApp.video.likes">Likes</Translate>
-            </span>
-          </dt>
-          <dd>{videoEntity.likes}</dd>
-          <dt>
-            <span id="dislikes">
-              <Translate contentKey="groupProjectApp.video.dislikes">Dislikes</Translate>
-            </span>
-          </dt>
-          <dd>{videoEntity.dislikes}</dd>
-          <dt>
             <span id="uploadDate">
               <Translate contentKey="groupProjectApp.video.uploadDate">Upload Date</Translate>
             </span>

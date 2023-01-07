@@ -20,10 +20,8 @@
       "id": "ID",
       "commentDate": "Comment Date",
       "body": "Body",
-      "likes": "Likes",
-      "dislikes": "Dislikes",
-      "videoUser": "Video User",
-      "video": "Video"
+      "video": "Video",
+      "videoUser": "Video User"
     }
   }
 }

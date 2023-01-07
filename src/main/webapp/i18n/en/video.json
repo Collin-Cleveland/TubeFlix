@@ -21,11 +21,9 @@
       "videoLink": "Video Link",
       "title": "Title",
       "description": "Description",
-      "likes": "Likes",
-      "dislikes": "Dislikes",
       "uploadDate": "Upload Date",
-      "comment": "Comment",
-      "uploader": "Uploader"
+      "uploader": "Uploader",
+      "comment": "Comment"
     }
   }
 }

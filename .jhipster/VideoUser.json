@@ -1,6 +1,6 @@
 {
   "applications": ["groupProject"],
-  "changelogDate": "20230106144115",
+  "changelogDate": "20230107204724",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "video_user",
@@ -24,15 +24,21 @@
       "relationshipType": "one-to-one"
     },
     {
-      "otherEntityName": "comment",
-      "otherEntityRelationshipName": "videoUser",
-      "relationshipName": "comment",
+      "otherEntityName": "video",
+      "otherEntityRelationshipName": "uploader",
+      "relationshipName": "video",
       "relationshipType": "one-to-many"
     },
     {
-      "otherEntityName": "video",
-      "otherEntityRelationshipName": "uploader",
-      "relationshipName": "videos",
+      "otherEntityName": "like",
+      "otherEntityRelationshipName": "video",
+      "relationshipName": "like",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "videoUser",
+      "relationshipName": "comment",
       "relationshipType": "one-to-many"
     }
   ],

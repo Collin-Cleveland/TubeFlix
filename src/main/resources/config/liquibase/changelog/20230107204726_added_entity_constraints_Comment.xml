@@ -6,18 +6,18 @@
     <!--
         Added the constraints for entity Comment.
     -->
-    <changeSet id="20230106144117-2" author="jhipster">
-
-        <addForeignKeyConstraint baseColumnNames="video_user_id"
-                                 baseTableName="comment"
-                                 constraintName="fk_comment__video_user_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="video_user"/>
+    <changeSet id="20230107204726-2" author="jhipster">
 
         <addForeignKeyConstraint baseColumnNames="video_id"
                                  baseTableName="comment"
                                  constraintName="fk_comment__video_id"
                                  referencedColumnNames="id"
                                  referencedTableName="video"/>
+
+        <addForeignKeyConstraint baseColumnNames="video_user_id"
+                                 baseTableName="comment"
+                                 constraintName="fk_comment__video_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="video_user"/>
     </changeSet>
 </databaseChangeLog>

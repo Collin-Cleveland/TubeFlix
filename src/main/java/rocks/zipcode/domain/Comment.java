@@ -29,19 +29,13 @@ public class Comment implements Serializable {
     @Column(name = "body")
     private String body;
 
-    @Column(name = "likes")
-    private Long likes;
-
-    @Column(name = "dislikes")
-    private Long dislikes;
-
     @ManyToOne
-    @JsonIgnoreProperties(value = { "internalUser", "comments", "videos" }, allowSetters = true)
-    private VideoUser videoUser;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "comments", "uploader" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "uploader", "comments" }, allowSetters = true)
     private Video video;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "internalUser", "videos", "likes", "comments" }, allowSetters = true)
+    private VideoUser videoUser;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -84,30 +78,17 @@ public class Comment implements Serializable {
         this.body = body;
     }
 
-    public Long getLikes() {
-        return this.likes;
+    public Video getVideo() {
+        return this.video;
     }
 
-    public Comment likes(Long likes) {
-        this.setLikes(likes);
+    public void setVideo(Video video) {
+        this.video = video;
+    }
+
+    public Comment video(Video video) {
+        this.setVideo(video);
         return this;
-    }
-
-    public void setLikes(Long likes) {
-        this.likes = likes;
-    }
-
-    public Long getDislikes() {
-        return this.dislikes;
-    }
-
-    public Comment dislikes(Long dislikes) {
-        this.setDislikes(dislikes);
-        return this;
-    }
-
-    public void setDislikes(Long dislikes) {
-        this.dislikes = dislikes;
     }
 
     public VideoUser getVideoUser() {
@@ -120,19 +101,6 @@ public class Comment implements Serializable {
 
     public Comment videoUser(VideoUser videoUser) {
         this.setVideoUser(videoUser);
-        return this;
-    }
-
-    public Video getVideo() {
-        return this.video;
-    }
-
-    public void setVideo(Video video) {
-        this.video = video;
-    }
-
-    public Comment video(Video video) {
-        this.setVideo(video);
         return this;
     }
 
@@ -162,8 +130,6 @@ public class Comment implements Serializable {
             "id=" + getId() +
             ", commentDate='" + getCommentDate() + "'" +
             ", body='" + getBody() + "'" +
-            ", likes=" + getLikes() +
-            ", dislikes=" + getDislikes() +
             "}";
     }
 }

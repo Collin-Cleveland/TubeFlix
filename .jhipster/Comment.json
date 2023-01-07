@@ -1,6 +1,6 @@
 {
   "applications": ["groupProject"],
-  "changelogDate": "20230106144117",
+  "changelogDate": "20230107204726",
   "dto": "mapstruct",
   "embedded": false,
   "entityTableName": "comment",
@@ -12,14 +12,6 @@
     {
       "fieldName": "body",
       "fieldType": "String"
-    },
-    {
-      "fieldName": "likes",
-      "fieldType": "Long"
-    },
-    {
-      "fieldName": "dislikes",
-      "fieldType": "Long"
     }
   ],
   "fluentMethods": true,
@@ -29,15 +21,15 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "videoUser",
-      "otherEntityRelationshipName": "comment",
-      "relationshipName": "videoUser",
-      "relationshipType": "many-to-one"
-    },
-    {
       "otherEntityName": "video",
       "otherEntityRelationshipName": "comment",
       "relationshipName": "video",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "videoUser",
+      "otherEntityRelationshipName": "comment",
+      "relationshipName": "videoUser",
       "relationshipType": "many-to-one"
     }
   ],

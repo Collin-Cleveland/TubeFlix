@@ -42,12 +42,6 @@ class VideoResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final Long DEFAULT_LIKES = 1L;
-    private static final Long UPDATED_LIKES = 2L;
-
-    private static final Long DEFAULT_DISLIKES = 1L;
-    private static final Long UPDATED_DISLIKES = 2L;
-
     private static final LocalDate DEFAULT_UPLOAD_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_UPLOAD_DATE = LocalDate.now(ZoneId.systemDefault());
 
@@ -82,8 +76,6 @@ class VideoResourceIT {
             .videoLink(DEFAULT_VIDEO_LINK)
             .title(DEFAULT_TITLE)
             .description(DEFAULT_DESCRIPTION)
-            .likes(DEFAULT_LIKES)
-            .dislikes(DEFAULT_DISLIKES)
             .uploadDate(DEFAULT_UPLOAD_DATE);
         return video;
     }
@@ -99,8 +91,6 @@ class VideoResourceIT {
             .videoLink(UPDATED_VIDEO_LINK)
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
-            .likes(UPDATED_LIKES)
-            .dislikes(UPDATED_DISLIKES)
             .uploadDate(UPDATED_UPLOAD_DATE);
         return video;
     }
@@ -127,8 +117,6 @@ class VideoResourceIT {
         assertThat(testVideo.getVideoLink()).isEqualTo(DEFAULT_VIDEO_LINK);
         assertThat(testVideo.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testVideo.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testVideo.getLikes()).isEqualTo(DEFAULT_LIKES);
-        assertThat(testVideo.getDislikes()).isEqualTo(DEFAULT_DISLIKES);
         assertThat(testVideo.getUploadDate()).isEqualTo(DEFAULT_UPLOAD_DATE);
     }
 
@@ -202,8 +190,6 @@ class VideoResourceIT {
             .andExpect(jsonPath("$.[*].videoLink").value(hasItem(DEFAULT_VIDEO_LINK)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].likes").value(hasItem(DEFAULT_LIKES.intValue())))
-            .andExpect(jsonPath("$.[*].dislikes").value(hasItem(DEFAULT_DISLIKES.intValue())))
             .andExpect(jsonPath("$.[*].uploadDate").value(hasItem(DEFAULT_UPLOAD_DATE.toString())));
     }
 
@@ -222,8 +208,6 @@ class VideoResourceIT {
             .andExpect(jsonPath("$.videoLink").value(DEFAULT_VIDEO_LINK))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
-            .andExpect(jsonPath("$.likes").value(DEFAULT_LIKES.intValue()))
-            .andExpect(jsonPath("$.dislikes").value(DEFAULT_DISLIKES.intValue()))
             .andExpect(jsonPath("$.uploadDate").value(DEFAULT_UPLOAD_DATE.toString()));
     }
 
@@ -246,13 +230,7 @@ class VideoResourceIT {
         Video updatedVideo = videoRepository.findById(video.getId()).get();
         // Disconnect from session so that the updates on updatedVideo are not directly saved in db
         em.detach(updatedVideo);
-        updatedVideo
-            .videoLink(UPDATED_VIDEO_LINK)
-            .title(UPDATED_TITLE)
-            .description(UPDATED_DESCRIPTION)
-            .likes(UPDATED_LIKES)
-            .dislikes(UPDATED_DISLIKES)
-            .uploadDate(UPDATED_UPLOAD_DATE);
+        updatedVideo.videoLink(UPDATED_VIDEO_LINK).title(UPDATED_TITLE).description(UPDATED_DESCRIPTION).uploadDate(UPDATED_UPLOAD_DATE);
         VideoDTO videoDTO = videoMapper.toDto(updatedVideo);
 
         restVideoMockMvc
@@ -270,8 +248,6 @@ class VideoResourceIT {
         assertThat(testVideo.getVideoLink()).isEqualTo(UPDATED_VIDEO_LINK);
         assertThat(testVideo.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testVideo.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testVideo.getLikes()).isEqualTo(UPDATED_LIKES);
-        assertThat(testVideo.getDislikes()).isEqualTo(UPDATED_DISLIKES);
         assertThat(testVideo.getUploadDate()).isEqualTo(UPDATED_UPLOAD_DATE);
     }
 
@@ -352,7 +328,7 @@ class VideoResourceIT {
         Video partialUpdatedVideo = new Video();
         partialUpdatedVideo.setId(video.getId());
 
-        partialUpdatedVideo.title(UPDATED_TITLE).dislikes(UPDATED_DISLIKES);
+        partialUpdatedVideo.title(UPDATED_TITLE);
 
         restVideoMockMvc
             .perform(
@@ -369,8 +345,6 @@ class VideoResourceIT {
         assertThat(testVideo.getVideoLink()).isEqualTo(DEFAULT_VIDEO_LINK);
         assertThat(testVideo.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testVideo.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testVideo.getLikes()).isEqualTo(DEFAULT_LIKES);
-        assertThat(testVideo.getDislikes()).isEqualTo(UPDATED_DISLIKES);
         assertThat(testVideo.getUploadDate()).isEqualTo(DEFAULT_UPLOAD_DATE);
     }
 
@@ -390,8 +364,6 @@ class VideoResourceIT {
             .videoLink(UPDATED_VIDEO_LINK)
             .title(UPDATED_TITLE)
             .description(UPDATED_DESCRIPTION)
-            .likes(UPDATED_LIKES)
-            .dislikes(UPDATED_DISLIKES)
             .uploadDate(UPDATED_UPLOAD_DATE);
 
         restVideoMockMvc
@@ -409,8 +381,6 @@ class VideoResourceIT {
         assertThat(testVideo.getVideoLink()).isEqualTo(UPDATED_VIDEO_LINK);
         assertThat(testVideo.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testVideo.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testVideo.getLikes()).isEqualTo(UPDATED_LIKES);
-        assertThat(testVideo.getDislikes()).isEqualTo(UPDATED_DISLIKES);
         assertThat(testVideo.getUploadDate()).isEqualTo(UPDATED_UPLOAD_DATE);
     }
 

@@ -58,16 +58,10 @@ export const Comment = () => {
                   <Translate contentKey="groupProjectApp.comment.body">Body</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="groupProjectApp.comment.likes">Likes</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="groupProjectApp.comment.dislikes">Dislikes</Translate>
+                  <Translate contentKey="groupProjectApp.comment.video">Video</Translate>
                 </th>
                 <th>
                   <Translate contentKey="groupProjectApp.comment.videoUser">Video User</Translate>
-                </th>
-                <th>
-                  <Translate contentKey="groupProjectApp.comment.video">Video</Translate>
                 </th>
                 <th />
               </tr>
@@ -84,10 +78,8 @@ export const Comment = () => {
                     {comment.commentDate ? <TextFormat type="date" value={comment.commentDate} format={APP_LOCAL_DATE_FORMAT} /> : null}
                   </td>
                   <td>{comment.body}</td>
-                  <td>{comment.likes}</td>
-                  <td>{comment.dislikes}</td>
-                  <td>{comment.videoUser ? <Link to={`/video-user/${comment.videoUser.id}`}>{comment.videoUser.id}</Link> : ''}</td>
                   <td>{comment.video ? <Link to={`/video/${comment.video.id}`}>{comment.video.id}</Link> : ''}</td>
+                  <td>{comment.videoUser ? <Link to={`/video-user/${comment.videoUser.id}`}>{comment.videoUser.id}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button tag={Link} to={`/comment/${comment.id}`} color="info" size="sm" data-cy="entityDetailsButton">

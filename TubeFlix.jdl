@@ -18,22 +18,24 @@ entity Video {
     videoLink String required
     title String required
     description String
-    likes Long
-    dislikes Long
     uploadDate LocalDate
 }
 
 entity Comment {
 	commentDate LocalDate
     body String
-    likes Long
-    dislikes Long
+}
+entity Like {
 }
 
 relationship OneToMany {
-	VideoUser{comment} to Comment{videoUser}
-    Video{comment} to Comment{video}
-    VideoUser{videos} to Video{uploader}
+    VideoUser{video} to Video{uploader}
+    VideoUser to Like{video}
+}
+relationship  ManyToOne {
+    Like{videoUser} to Video
+    Comment{video} to Video{comment}
+    Comment{videoUser} to VideoUser{comment}
 }
 
 relationship OneToOne {

@@ -37,23 +37,17 @@ public class Video implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "likes")
-    private Long likes;
-
-    @Column(name = "dislikes")
-    private Long dislikes;
-
     @Column(name = "upload_date")
     private LocalDate uploadDate;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "internalUser", "videos", "likes", "comments" }, allowSetters = true)
+    private VideoUser uploader;
+
     @OneToMany(mappedBy = "video")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "videoUser", "video" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "video", "videoUser" }, allowSetters = true)
     private Set<Comment> comments = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = { "internalUser", "comments", "videos" }, allowSetters = true)
-    private VideoUser uploader;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -109,32 +103,6 @@ public class Video implements Serializable {
         this.description = description;
     }
 
-    public Long getLikes() {
-        return this.likes;
-    }
-
-    public Video likes(Long likes) {
-        this.setLikes(likes);
-        return this;
-    }
-
-    public void setLikes(Long likes) {
-        this.likes = likes;
-    }
-
-    public Long getDislikes() {
-        return this.dislikes;
-    }
-
-    public Video dislikes(Long dislikes) {
-        this.setDislikes(dislikes);
-        return this;
-    }
-
-    public void setDislikes(Long dislikes) {
-        this.dislikes = dislikes;
-    }
-
     public LocalDate getUploadDate() {
         return this.uploadDate;
     }
@@ -146,6 +114,19 @@ public class Video implements Serializable {
 
     public void setUploadDate(LocalDate uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    public VideoUser getUploader() {
+        return this.uploader;
+    }
+
+    public void setUploader(VideoUser videoUser) {
+        this.uploader = videoUser;
+    }
+
+    public Video uploader(VideoUser videoUser) {
+        this.setUploader(videoUser);
+        return this;
     }
 
     public Set<Comment> getComments() {
@@ -179,19 +160,6 @@ public class Video implements Serializable {
         return this;
     }
 
-    public VideoUser getUploader() {
-        return this.uploader;
-    }
-
-    public void setUploader(VideoUser videoUser) {
-        this.uploader = videoUser;
-    }
-
-    public Video uploader(VideoUser videoUser) {
-        this.setUploader(videoUser);
-        return this;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -219,8 +187,6 @@ public class Video implements Serializable {
             ", videoLink='" + getVideoLink() + "'" +
             ", title='" + getTitle() + "'" +
             ", description='" + getDescription() + "'" +
-            ", likes=" + getLikes() +
-            ", dislikes=" + getDislikes() +
             ", uploadDate='" + getUploadDate() + "'" +
             "}";
     }

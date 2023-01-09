@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
 const VideoThumbnail = props => {
   const { videoLink } = props;

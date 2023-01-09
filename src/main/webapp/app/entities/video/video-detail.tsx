@@ -4,10 +4,12 @@ import { Button, Row, Col } from 'reactstrap';
 import { Translate, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntity } from './video.reducer';
+import ReactPlayer from 'react-player';
+import VideoThumbnail from './videoThumbnailComponent';
 
 export const VideoDetail = () => {
   const dispatch = useAppDispatch();
@@ -27,17 +29,13 @@ export const VideoDetail = () => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="id">
-              <Translate contentKey="global.field.id">ID</Translate>
-            </span>
+            <span id="videoLink"></span>
           </dt>
-          <dd>{videoEntity.id}</dd>
-          <dt>
-            <span id="videoLink">
-              <Translate contentKey="groupProjectApp.video.videoLink">Video Link</Translate>
-            </span>
-          </dt>
-          <dd>{videoEntity.videoLink}</dd>
+          <dd>
+            <ReactPlayer url={videoEntity.videoLink}>
+              <VideoThumbnail videoLink={videoEntity.videoLink} />
+            </ReactPlayer>
+          </dd>
           <dt>
             <span id="title">
               <Translate contentKey="groupProjectApp.video.title">Title</Translate>

@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IVideo } from 'app/shared/model/video.model';
 import { getEntities, reset } from './video.reducer';
+import VideoThumbnail from './videoThumbnailComponent';
 
 export const Video = () => {
   const dispatch = useAppDispatch();
@@ -151,7 +152,11 @@ export const Video = () => {
                         {video.id}
                       </Button>
                     </td>
-                    <td>{video.videoLink}</td>
+                    <td>
+                      <div>
+                        <VideoThumbnail videoLink={video.videoLink} />
+                      </div>
+                    </td>
                     <td>{video.title}</td>
                     <td>{video.description}</td>
                     <td>{video.uploadDate ? <TextFormat type="date" value={video.uploadDate} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>

@@ -1,92 +1,27 @@
 import './home.scss';
 
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { getSortState, Translate } from 'react-jhipster';
-import { Row, Col, Alert, Button, Table } from 'reactstrap';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Translate } from 'react-jhipster';
+import { Row, Col, Alert } from 'reactstrap';
 
-import { useAppDispatch, useAppSelector } from 'app/config/store';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import VideoThumbnail from 'app/entities/video/videoThumbnailComponent';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { getEntities } from 'app/entities/video-user/video-user.reducer';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { reset } from '../administration/user-management/user-management.reducer';
+import { useAppSelector } from 'app/config/store';
 
 export const Home = () => {
   const account = useAppSelector(state => state.authentication.account);
 
-  const dispatch = useAppDispatch();
-
-  const location = useLocation();
-
-  const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(location, ITEMS_PER_PAGE, 'id'), location.search)
-  );
-  const [sorting, setSorting] = useState(false);
-
-  const videoList = useAppSelector(state => state.video.entities);
-  const loading = useAppSelector(state => state.video.loading);
-  const links = useAppSelector(state => state.video.links);
-  const updateSuccess = useAppSelector(state => state.video.updateSuccess);
-
-  const getAllEntities = () => {
-    dispatch(
-      getEntities({
-        page: paginationState.activePage - 1,
-        size: paginationState.itemsPerPage,
-        sort: `${paginationState.sort},${paginationState.order}`,
-      })
-    );
-  };
-
-  const resetAll = () => {
-    dispatch(reset());
-    setPaginationState({
-      ...paginationState,
-      activePage: 1,
-    });
-    dispatch(getEntities({}));
-  };
-
-  useEffect(() => {
-    resetAll();
-  }, []);
-
-  useEffect(() => {
-    if (updateSuccess) {
-      resetAll();
-    }
-  }, [updateSuccess]);
-
-  useEffect(() => {
-    getAllEntities();
-  }, [paginationState.activePage]);
-
-  const handleLoadMore = () => {
-    if ((window as any).pageYOffset > 0) {
-      setPaginationState({
-        ...paginationState,
-        activePage: paginationState.activePage + 1,
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (sorting) {
-      getAllEntities();
-      setSorting(false);
-    }
-  }, [sorting]);
-
-  const handleSyncList = () => {
-    resetAll();
-  };
-
   return (
     <Row>
+      <Col md="3" className="pad">
+        <span className="hipster rounded" />
+      </Col>
       <Col md="9">
+        <h2>
+          <Translate contentKey="home.title">Welcome, Java Hipster!</Translate>
+        </h2>
+        <p className="lead">
+          <Translate contentKey="home.subtitle">This is your homepage</Translate>
+        </p>
         {account?.login ? (
           <div>
             <Alert color="success">
@@ -118,54 +53,46 @@ export const Home = () => {
             </Alert>
           </div>
         )}
-      </Col>
+        <p>
+          <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
+        </p>
 
-      <div>
-        <h2 id="video-heading" data-cy="VideoHeading">
-          <Translate contentKey="groupProjectApp.video.home.title">Videos</Translate>
-          <div className="d-flex justify-content-end">
-            <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-              <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-              <Translate contentKey="groupProjectApp.video.home.refreshListLabel">Refresh List</Translate>
-            </Button>
-            <Link to="/video/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-              <FontAwesomeIcon icon="plus" />
-              &nbsp;
-              <Translate contentKey="groupProjectApp.video.home.createLabel">Create new Video</Translate>
-            </Link>
-          </div>
-        </h2>
-        <div className="table-responsive">
-          <InfiniteScroll
-            dataLength={videoList ? videoList.length : 0}
-            next={handleLoadMore}
-            hasMore={paginationState.activePage - 1 < links.next}
-            loader={<div className="loader">Loading ...</div>}
-          >
-            {videoList && videoList.length > 0 ? (
-              <Table responsive>
-                <tbody>
-                  {videoList.map((video, i) => (
-                    <tr key={`entity-${i}`} data-cy="entityTable">
-                      <td>
-                        <Button tag={Link} to={`/video/${video.id}`} color="link" size="sm">
-                          <VideoThumbnail videoLink={video.videoLink} />
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            ) : (
-              !loading && (
-                <div className="alert alert-warning">
-                  <Translate contentKey="groupProjectApp.video.home.notFound">No Videos found</Translate>
-                </div>
-              )
-            )}
-          </InfiniteScroll>
-        </div>
-      </div>
+        <ul>
+          <li>
+            <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">
+              <Translate contentKey="home.link.homepage">JHipster homepage</Translate>
+            </a>
+          </li>
+          <li>
+            <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">
+              <Translate contentKey="home.link.stackoverflow">JHipster on Stack Overflow</Translate>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">
+              <Translate contentKey="home.link.bugtracker">JHipster bug tracker</Translate>
+            </a>
+          </li>
+          <li>
+            <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
+              <Translate contentKey="home.link.chat">JHipster public chat room</Translate>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">
+              <Translate contentKey="home.link.follow">follow @jhipster on Twitter</Translate>
+            </a>
+          </li>
+        </ul>
+
+        <p>
+          <Translate contentKey="home.like">If you like JHipster, do not forget to give us a star on</Translate>{' '}
+          <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+          !
+        </p>
+      </Col>
     </Row>
   );
 };

@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Table } from 'reactstrap';
-import { Translate, TextFormat, getSortState } from 'react-jhipster';
+import { byteSize, Translate, TextFormat, getSortState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, messages } from 'app/config/constants';
 import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IVideo } from 'app/shared/model/video.model';
 import { getEntities, reset } from './video.reducer';
-import VideoThumbnail from './videoThumbnailComponent';
 
 export const Video = () => {
   const dispatch = useAppDispatch();
@@ -98,6 +97,34 @@ export const Video = () => {
 
   return (
     <div>
+
+      <head>
+      {/* <meta charSet="ISO-8859-1"> */}
+      <title>Spring Boot File Upload to S3</title>
+      </head>
+      <body>
+          <div>
+              <div><h2>Spring Boot File Upload to S3</h2></div>
+              {/* <div><h3>[[${message}]]</h3></div> */}
+              <div>
+                  <form action="upload" method="post" encType="multipart/form-data">
+                      <p>
+                          Description:
+                          <input type="text" name="description" required />
+                      </p>
+                      
+                      <p>
+                          <input type="file" name="file" required />
+                      </p>
+                      
+                      <p>
+                          <button type="submit">Submit</button>
+                      </p>
+                  </form>
+              </div>
+          </div>
+      </body>
+
       <h2 id="video-heading" data-cy="VideoHeading">
         <Translate contentKey="groupProjectApp.video.home.title">Videos</Translate>
         <div className="d-flex justify-content-end">
@@ -152,11 +179,7 @@ export const Video = () => {
                         {video.id}
                       </Button>
                     </td>
-                    <td>
-                      <div>
-                        <VideoThumbnail videoLink={video.videoLink} />
-                      </div>
-                    </td>
+                    <td>{video.videoLink}</td>
                     <td>{video.title}</td>
                     <td>{video.description}</td>
                     <td>{video.uploadDate ? <TextFormat type="date" value={video.uploadDate} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>

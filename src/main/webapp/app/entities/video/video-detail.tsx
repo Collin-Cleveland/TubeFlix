@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
-import { Translate, TextFormat } from 'react-jhipster';
+import { Translate, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntity } from './video.reducer';
-import ReactPlayer from 'react-player';
 import VideoThumbnail from './videoThumbnailComponent';
+import ReactPlayer from 'react-player';
 
 export const VideoDetail = () => {
   const dispatch = useAppDispatch();
@@ -29,13 +29,25 @@ export const VideoDetail = () => {
         </h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="videoLink"></span>
+            <span id="id">
+              <Translate contentKey="global.field.id">ID</Translate>
+            </span>
           </dt>
+          <dd>{videoEntity.id}</dd>
+          <dt>
+            <span id="videoLink">
+              <Translate contentKey="groupProjectApp.video.videoLink">Video Link</Translate>
+            </span>
+          </dt>
+          
+          {/* Youtube player on page from video link in DB */}
+
           <dd>
-            <ReactPlayer url={videoEntity.videoLink}>
+            <ReactPlayer url={videoEntity.videoLink} controls={true}>
               <VideoThumbnail videoLink={videoEntity.videoLink} />
             </ReactPlayer>
           </dd>
+
           <dt>
             <span id="title">
               <Translate contentKey="groupProjectApp.video.title">Title</Translate>

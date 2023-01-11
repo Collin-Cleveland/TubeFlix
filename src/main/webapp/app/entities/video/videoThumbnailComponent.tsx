@@ -1,20 +1,35 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import VideoImageThumbnail from 'react-video-thumbnail-image'; // use npm published version
+
+
 
 const VideoThumbnail = props => {
   const { videoLink } = props;
 
-  // Extract the video ID from the link
-  let videoId = videoLink.split('v=')[1];
-  const ampersandIndex = videoId.indexOf('&');
-  if (ampersandIndex !== -1) {
-    videoId = videoId.substring(0, ampersandIndex);
+  if (videoLink.charAt(12) == 'y'){
+    // Extract the video ID from the link
+    let videoId = videoLink.split('v=')[1];
+    const ampersandIndex = videoId.indexOf('&');
+    if (ampersandIndex !== -1) {
+      videoId = videoId.substring(0, ampersandIndex);
+    }
+
+    // Construct the thumbnail image URL
+    const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
+  return <img width="300" src={thumbnailUrl} alt="Video thumbnail" />;
   }
-
-  // Construct the thumbnail image URL
-  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-
-  return <img width="160" src={thumbnailUrl} alt="Video thumbnail" />;
+  else {
+    return (
+      <VideoImageThumbnail
+    videoUrl = {videoLink}
+    thumbnailHandler={(thumbnail) => console.log(thumbnail)}
+    width={120}
+    height={80}
+    alt="my test video"
+    />
+    );
+};
 };
 
 export default VideoThumbnail;

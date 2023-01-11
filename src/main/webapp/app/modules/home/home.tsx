@@ -56,7 +56,20 @@ export const Home = () => {
         <p>
           <Translate contentKey="home.question">If you have any question on JHipster:</Translate>
         </p>
+<form action="upload" method="post" encType="multipart/form-data">
+                      <p>
+                          Description:
+                          <input type="text" name="description" required />
+                      </p>
 
+                      <p>
+                          <input type="file" name="file" required />
+                      </p>
+
+                      <p>
+                          <button type="submit">Submit</button>
+                      </p>
+                  </form>b
         <ul>
           <li>
             <a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">

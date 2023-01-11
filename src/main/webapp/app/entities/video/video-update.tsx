@@ -69,6 +69,37 @@ export const VideoUpdate = () => {
 
   return (
     <div>
+
+      <head>
+        {/* <meta charSet="ISO-8859-1"> */}
+        <title>Spring Boot File Upload to S3</title>
+      </head>
+        <body>
+            <div>
+                <div><h2>File Upload to S3</h2></div>
+                <div>
+                    <form action="upload" method="post" encType="multipart/form-data">
+                        <p>
+                            Title:
+                            <input type="text" name="title" required/>
+                        </p>
+                        <p>
+                            Description:
+                            <input type="text" name="description"/>
+                        </p>
+                        
+                        <p>
+                            <input type="file" name="file" required />
+                        </p>
+                        
+                        <p>
+                            <button type="submit">Submit</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </body>
+
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="groupProjectApp.video.home.createOrEditLabel" data-cy="VideoCreateUpdateHeading">

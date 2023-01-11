@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 import { Translate, byteSize, TextFormat } from 'react-jhipster';
@@ -10,36 +10,35 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntity } from './video.reducer';
 import VideoThumbnail from './videoThumbnailComponent';
 import ReactPlayer from 'react-player';
+import { IComment } from 'app/shared/model/comment.model';
+import axios from 'axios';
 
 export const VideoDetail = () => {
   const dispatch = useAppDispatch();
 
   const { id } = useParams<'id'>();
 
+  const [commentsByVideoId, setCommentsByVideoId] = useState<IComment[]>([])
+
   useEffect(() => {
     dispatch(getEntity(id));
   }, []);
+
+  useEffect(() => {
+    axios.get(`/api/comments/video/{id}?id=${id}`)
+    .then(response => {
+      console.log(response.data)
+      setCommentsByVideoId(response.data)
+    })
+  }, [])
+
+
 
   const videoEntity = useAppSelector(state => state.video.entity);
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="videoDetailsHeading">
-          <Translate contentKey="groupProjectApp.video.detail.title">Video</Translate>
-        </h2>
-        <dl className="jh-entity-details">
-          <dt>
-            <span id="id">
-              <Translate contentKey="global.field.id">ID</Translate>
-            </span>
-          </dt>
-          <dd>{videoEntity.id}</dd>
-          <dt>
-            <span id="videoLink">
-              <Translate contentKey="groupProjectApp.video.videoLink">Video Link</Translate>
-            </span>
-          </dt>
-          
+        
           {/* Youtube player on page from video link in DB */}
 
           <dd>
@@ -47,7 +46,6 @@ export const VideoDetail = () => {
               <VideoThumbnail videoLink={videoEntity.videoLink} />
             </ReactPlayer>
           </dd>
-
           <dt>
             <span id="title">
               <Translate contentKey="groupProjectApp.video.title">Title</Translate>
@@ -72,7 +70,7 @@ export const VideoDetail = () => {
             <Translate contentKey="groupProjectApp.video.uploader">Uploader</Translate>
           </dt>
           <dd>{videoEntity.uploader ? videoEntity.uploader.id : ''}</dd>
-        </dl>
+        
         <Button tag={Link} to="/video" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
           <span className="d-none d-md-inline">
@@ -87,6 +85,21 @@ export const VideoDetail = () => {
           </span>
         </Button>
       </Col>
+      
+      <div>
+      <h2>Comments</h2>
+        <ul>
+          {commentsByVideoId.length !== 0 ? (
+            commentsByVideoId.map((comment) => (
+              <li key={comment.id}>
+                  Body: {comment.body}
+              </li>
+            ))
+          ) : (
+            <li>No comments found</li>
+          )}
+        </ul>
+      </div>
     </Row>
   );
 };

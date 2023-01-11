@@ -88,6 +88,12 @@ public class CommentService {
         return commentRepository.findAll().stream().map(commentMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
+    @Transactional(readOnly = true)
+    public List<CommentDTO> findAllCommentsByVideoId(Long id) {
+        log.debug("Request to get all Comments");
+        return commentRepository.findByVideoId(id).stream().map(commentMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+    }
+
     /**
      * Get one comment by id.
      *

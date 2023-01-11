@@ -141,6 +141,12 @@ public class CommentResource {
         return commentService.findAll();
     }
 
+    @GetMapping("/comments/video/{id}")
+    public List<CommentDTO> getAllCommentsByVideoId(Long id) {
+        log.debug("REST request to get all Comments");
+        return commentService.findAllCommentsByVideoId(id);
+    }
+
     /**
      * {@code GET  /comments/:id} : get the "id" comment.
      *

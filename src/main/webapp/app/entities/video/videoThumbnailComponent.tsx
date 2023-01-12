@@ -21,15 +21,8 @@ const VideoThumbnail = props => {
   }
   else {
     return (
-      <VideoImageThumbnail
-    videoUrl = {videoLink}
-    thumbnailHandler={(thumbnail) => console.log(thumbnail)}
-    width={120}
-    height={80}
-    alt="Video thumbnail"
-    />
-    );
-};
+      <img width="300" src="content/images/thumbnail-default.jpeg" alt="Default Video thumbnail" />
+)};
 };
 
 export default VideoThumbnail;

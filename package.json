@@ -5,6 +5,7 @@
   "description": "Description for groupProject",
   "license": "UNLICENSED",
   "scripts": {
+    "start:api": "node server",
     "app:start": "./mvnw",
     "backend:build-cache": "./mvnw dependency:go-offline",
     "backend:debug": "./mvnw -Dspring-boot.run.jvmArguments=\"-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000\"",

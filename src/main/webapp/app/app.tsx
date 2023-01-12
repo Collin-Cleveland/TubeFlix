@@ -18,6 +18,7 @@ import ErrorBoundary from 'app/shared/error/error-boundary';
 import { AUTHORITIES } from 'app/config/constants';
 import AppRoutes from 'app/routes';
 
+
 const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
 
 export const App = () => {
@@ -35,7 +36,7 @@ export const App = () => {
   const isInProduction = useAppSelector(state => state.applicationProfile.inProduction);
   const isOpenAPIEnabled = useAppSelector(state => state.applicationProfile.isOpenAPIEnabled);
 
-  const paddingTop = '60px';
+  const paddingTop = '100px';
   return (
     <BrowserRouter basename={baseHref}>
       <div className="app-container" style={{ paddingTop }}>

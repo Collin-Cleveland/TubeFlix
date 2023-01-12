@@ -12,6 +12,6 @@ import rocks.zipcode.domain.Comment;
 @SuppressWarnings("unused")
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-
+    
     public List<Comment> findByVideoId(Long id);
 }

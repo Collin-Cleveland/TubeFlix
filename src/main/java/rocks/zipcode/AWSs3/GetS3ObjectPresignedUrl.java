@@ -4,71 +4,78 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.utils.IoUtils;
 @Service
 public class GetS3ObjectPresignedUrl {
+    private static final Logger LOG = LoggerFactory.getLogger(GetS3ObjectPresignedUrl.class);
+    String bucketName="tubeflix";
+    private S3Presigner getPresigner() {
 
-    public static final String CONTENT_TYPE = "Content-Type";
-    public static final String CONTENT_LENGTH = "Content-Length";
-    public static final String VIDEO_CONTENT = "video/";
-    private S3Client s3 = null ;
+        // Create the S3Presigner object.
+        Region region = Region.US_EAST_1;
+        return S3Presigner.builder()
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .region(region)
+            .build();
+    }
+    private S3Client getS3Client() {
 
-
-    public  String getPresignedUrl( ) {
-        PresignedGetObjectRequest presignedGetObjectRequest=null;
         // Create the S3Client object.
         Region region = Region.US_EAST_1;
-        S3Presigner presigner=S3Presigner.builder()
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create()).region(region)
+        return S3Client.builder()
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .region(region)
             .build();
-        String bucketName="tubeflix";
-        String keyName="ocean.mp4";
+    }
+    public List<String> getLstPresignedUrl(){
+        //method to generate PresignedUrl for all Objects in the bucket
+        ListObjectsRequest listObjects = ListObjectsRequest
+            .builder()
+            .bucket(bucketName)
+            .build();
+
+        List<S3Object> objects = getS3Client().listObjects(listObjects).contents();
+        List<String> keys = new ArrayList<>();
+        for (S3Object s3Obj: objects) {
+            keys.add(getPresignedUrl(s3Obj.key()));
+        }
+            return keys;
+    }
+
+    public  String getPresignedUrl(String keyName ) {
+        //method to generate PresignedUrl for key
+        PresignedGetObjectRequest presignedGetObjectRequest=null;
+        Region region = Region.US_EAST_1;
+        S3Presigner presigner=getPresigner();
         try {
-            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(keyName)
-                .build();
+            ListObjectsRequest listObjects = ListObjectsRequest.builder()
+                                                               .bucket(bucketName).build();
+
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder().bucket(bucketName)
+                                                                          .key(keyName)
+                                                                          .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(60))
-                .getObjectRequest(getObjectRequest)
-                .build();
+                                                             .signatureDuration(Duration.ofMinutes(60))
+                                                             .getObjectRequest(getObjectRequest)
+                                                             .build();
 
              presignedGetObjectRequest = presigner.presignGetObject(getObjectPresignRequest);
- //           HttpURLConnection connection = (HttpURLConnection) presignedGetObjectRequest.url().openConnection();
-//            presignedGetObjectRequest.httpRequest().headers().forEach((header, values) -> {
-//                values.forEach(value -> {
-//                    connection.addRequestProperty(header, value);
-//                });
-//            });
-
-            // Send any request payload that the service needs (not needed when isBrowserExecutable is true).
-//            if (presignedGetObjectRequest.signedPayload().isPresent()) {
-//                connection.setDoOutput(true);
-//
-//                try (InputStream signedPayload = presignedGetObjectRequest.signedPayload().get().asInputStream();
-//                     OutputStream httpOutputStream = connection.getOutputStream()) {
-//                    IoUtils.copy(signedPayload, httpOutputStream);
-//                }
-//            }
-//
-//            // Download the result of executing the request.
-//            try (InputStream content = connection.getInputStream()) {
-//                System.out.println("Service returned response: ");
-//                IoUtils.copy(content, System.out);
-//            }
 
         } catch (S3Exception e) {
             e.getStackTrace();

@@ -9,4 +9,7 @@ import rocks.zipcode.domain.Like;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface LikeRepository extends JpaRepository<Like, Long> {}
+public interface LikeRepository extends JpaRepository<Like, Long> {
+
+    
+}

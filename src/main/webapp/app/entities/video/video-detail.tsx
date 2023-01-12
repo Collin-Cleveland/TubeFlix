@@ -13,6 +13,13 @@ import ReactPlayer from 'react-player';
 import { IComment } from 'app/shared/model/comment.model';
 import axios from 'axios';
 
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import { styled } from '@mui/material/styles';
+
+import './video-detail.scss'
+
 export const VideoDetail = () => {
   const dispatch = useAppDispatch();
 
@@ -27,12 +34,18 @@ export const VideoDetail = () => {
   useEffect(() => {
     axios.get(`/api/comments/video/{id}?id=${id}`)
     .then(response => {
-      console.log(response.data)
+      //console.log(response.data)
       setCommentsByVideoId(response.data)
     })
   }, [])
 
-
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
 
   const videoEntity = useAppSelector(state => state.video.entity);
   return (
@@ -87,13 +100,19 @@ export const VideoDetail = () => {
       </Col>
       
       <div>
-      <h2>Comments</h2>
+      <h2 className = "center">Comments</h2>
         <ul>
           {commentsByVideoId.length !== 0 ? (
             commentsByVideoId.map((comment) => (
-              <li key={comment.id}>
-                  Body: {comment.body}
-              </li>
+              <Box sx={{ width: '100%' }}>
+                <Stack key={comment.id}>
+                  <Item>
+                    <div>User: {comment.videoUser.id}</div>
+                    <div>Comment: {comment.body}</div>
+                    <div>Date: {comment.commentDate}</div>
+                  </Item>
+                </Stack>
+              </Box>
             ))
           ) : (
             <li>No comments found</li>

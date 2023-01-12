@@ -8,6 +8,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -22,8 +23,13 @@ public class GetS3Controller {
 
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     @ResponseBody
-    public String getItems() {
-        return pUrl.getPresignedUrl();
+    public String getItems(String key) {
+        return pUrl.getPresignedUrl(key);
+    }
+    @RequestMapping(value = "/listS3Objects", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> getListObjectKeys() {
+        return pUrl.getLstPresignedUrl();
     }
 
 }

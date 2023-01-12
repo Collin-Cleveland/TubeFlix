@@ -26,7 +26,7 @@ const VideoThumbnail = props => {
     thumbnailHandler={(thumbnail) => console.log(thumbnail)}
     width={120}
     height={80}
-    alt="my test video"
+    alt="Video thumbnail"
     />
     );
 };

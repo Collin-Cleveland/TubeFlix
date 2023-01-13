@@ -81,9 +81,6 @@ export const Home = () => {
     }
   }, [sorting]);
 
-  const handleSyncList = () => {
-    resetAll();
-  };
 
   return (
     

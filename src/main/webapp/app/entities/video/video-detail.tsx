@@ -101,6 +101,11 @@ export const VideoDetail = () => {
       
       <div>
       <h2 className = "center">Comments</h2>
+        <Link to="/comment/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
+          <FontAwesomeIcon icon="plus" />
+          &nbsp;
+          <Translate contentKey="groupProjectApp.comment.home.createLabel">Create new Comment</Translate>
+        </Link>
         <ul>
           {commentsByVideoId.length !== 0 ? (
             commentsByVideoId.map((comment) => (

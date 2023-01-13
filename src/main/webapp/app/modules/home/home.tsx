@@ -113,8 +113,8 @@ export const Home = () => {
                   <tr key={`entity-${i}`} data-cy="entityTable">
                     <td>
                       <div className="center">
-                      <div className="center">{video.title}</div>
-                      <Button tag={Link} to={`/video/${video.id}`} className="center">
+                      <div className="header">{video.title}</div>
+                      <Button tag={Link} to={`/video/${video.id}`} className="button">
                         <VideoThumbnail videoLink = {video.videoLink} />
                       </Button>
                       <div className="center">{video.description}</div>

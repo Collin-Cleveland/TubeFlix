@@ -85,12 +85,13 @@
     "dayjs": "1.11.5",
     "lodash": "4.17.21",
     "path-browserify": "1.0.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "7.30.0",
     "react-jhipster": "0.22.0",
     "react-listbox": "^1.2.13",
     "react-loadable": "5.5.0",
+    "react-native-create-thumbnail": "^1.6.4",
     "react-native-video": "^5.2.1",
     "react-player": "^2.11.0",
     "react-redux": "8.0.2",
@@ -102,7 +103,9 @@
     "redux": "4.2.0",
     "redux-thunk": "2.4.1",
     "tslib": "2.4.0",
-    "uuid": "8.3.2"
+    "uuid": "8.3.2",
+    "video-react": "^0.16.0",
+    "video-thumbnail-url": "^1.0.1"
   },
   "devDependencies": {
     "@testing-library/react": "13.3.0",

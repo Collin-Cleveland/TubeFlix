@@ -29,7 +29,7 @@ public class AWSs3UploadObj {
     VideoRepository videoRepository;
     @Autowired
     AWSS3ClientServices awss3ClientServices;
-    private static final Logger LOG = LoggerFactory.getLogger(GetS3ObjectPresignedUrl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AWSs3UploadObj.class);
     String bucketName="tubeflix";
 
     // Places a new video into an Amazon S3 bucket.
@@ -37,15 +37,10 @@ public class AWSs3UploadObj {
 
         try {
 
-//            PutObjectRequest putOb = PutObjectRequest.builder()
-//                .bucket(bucketName)
-//                .key(fileName)
-//                .build();
-//            awss3ClientServices.getS3Client().putObject(putOb, RequestBody.fromBytes(bytes));
             PutObjectRequest objectRequest = PutObjectRequest.builder()
                 .bucket(bucketName)
                 .key(fileName)
-                .contentType("image/png")
+                .contentType("video/mp4")
                 .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
@@ -54,8 +49,6 @@ public class AWSs3UploadObj {
                 .build();
             PresignedPutObjectRequest presignedRequest = awss3ClientServices.getPresigner().presignPutObject(presignRequest);
             String myURL = presignedRequest.url().toString();
-            System.out.println("Presigned URL to upload a file to: " +myURL);
-            System.out.println("Which HTTP method needs to be used when uploading a file: " + presignedRequest.httpRequest().method());
 
             // Upload content to the Amazon S3 bucket by using this URL.
             URL url = presignedRequest.url();
@@ -63,11 +56,11 @@ public class AWSs3UploadObj {
             // Create the connection and use it to upload the new object by using the presigned URL.
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
-            connection.setRequestProperty("Content-Type","image/png");
+            connection.setRequestProperty("Content-Type","video/mp4");
             connection.setRequestMethod("PUT");
             connection.getOutputStream().write(bytes);
             connection.getResponseCode();
-            System.out.println("HTTP response code is " + connection.getResponseCode());
+           // System.out.println("HTTP response code is " + connection.getResponseCode());
 
         } catch (S3Exception | IOException e) {
             e.getStackTrace();

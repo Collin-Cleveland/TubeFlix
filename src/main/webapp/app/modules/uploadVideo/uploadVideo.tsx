@@ -8,7 +8,7 @@ function uploadVideo() {
         const formData = new FormData();
         formData.append("file", data.file[0]);
 
-        const res = await fetch("http://localhost:8080/uploadFile", {
+        const res = await fetch("http://localhost:8080/fileupload", {
             method: "POST",
             body: formData,
         }).then((res) => res.json());
@@ -16,6 +16,7 @@ function uploadVideo() {
     };
 
     return (
+        
         <div className="App">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input type="file" {...register("file")} />

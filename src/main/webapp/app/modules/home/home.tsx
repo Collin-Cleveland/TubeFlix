@@ -81,17 +81,6 @@ export const Home = () => {
     }
   }, [sorting]);
 
-  const sort = p => () => {
-    dispatch(reset());
-    setPaginationState({
-      ...paginationState,
-      activePage: 1,
-      order: paginationState.order === ASC ? DESC : ASC,
-      sort: p,
-    });
-    setSorting(true);
-  };
-
   const handleSyncList = () => {
     resetAll();
   };

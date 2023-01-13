@@ -106,7 +106,7 @@ export const VideoDetail = () => {
           {commentsByVideoId.length !== 0 ? (
             commentsByVideoId.map((comment) => (
               <Box sx={{ width: '100%' }}>
-                <Stack key={comment.id} mt={2}>
+                <Stack key={comment.id} mt={2} className="btn btn-primary jh-create-entity">
                   <Item>
                     <div>User: {comment.videoUser.id}</div>
                     <div>Comment: {comment.body}</div>

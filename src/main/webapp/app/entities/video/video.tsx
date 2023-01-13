@@ -28,9 +28,7 @@ export const Video = () => {
 
   const videoList = useAppSelector(state => state.video.entities);
   const loading = useAppSelector(state => state.video.loading);
-  const totalItems = useAppSelector(state => state.video.totalItems);
   const links = useAppSelector(state => state.video.links);
-  const entity = useAppSelector(state => state.video.entity);
   const updateSuccess = useAppSelector(state => state.video.updateSuccess);
 
   const getAllEntities = () => {

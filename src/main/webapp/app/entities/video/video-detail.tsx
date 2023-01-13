@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Button, Row, Col } from 'reactstrap';
+import { Button, Row, Col, Container } from 'reactstrap';
 import { Translate, byteSize, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -49,14 +49,15 @@ export const VideoDetail = () => {
 
   const videoEntity = useAppSelector(state => state.video.entity);
   return (
+    <Container>
     <Row>
-      <Col md="8">
+      <Col>
         
           {/* Youtube player on page from video link in DB */}
 
           <dd>
             <ReactPlayer url={videoEntity.videoLink} controls={true}>
-              <VideoThumbnail videoLink={videoEntity.videoLink} />
+              <VideoThumbnail videoLink={videoEntity.videoLink}/>
             </ReactPlayer>
           </dd>
           <dt>
@@ -91,26 +92,21 @@ export const VideoDetail = () => {
           </span>
         </Button>
         &nbsp;
-        <Button tag={Link} to={`/video/${videoEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" />{' '}
-          <span className="d-none d-md-inline">
-            <Translate contentKey="entity.action.edit">Edit</Translate>
-          </span>
-        </Button>
       </Col>
-      
+      <Col>
       <div>
-      <h2 className = "center">Comments</h2>
+      <h2 className='center'>Comments</h2>
+      <div>&nbsp;</div>
         <Link to="/comment/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
           <FontAwesomeIcon icon="plus" />
-          &nbsp;
           <Translate contentKey="groupProjectApp.comment.home.createLabel">Create new Comment</Translate>
         </Link>
+        <div>&nbsp;</div>
         <ul>
           {commentsByVideoId.length !== 0 ? (
             commentsByVideoId.map((comment) => (
               <Box sx={{ width: '100%' }}>
-                <Stack key={comment.id}>
+                <Stack key={comment.id} mt={2}>
                   <Item>
                     <div>User: {comment.videoUser.id}</div>
                     <div>Comment: {comment.body}</div>
@@ -124,7 +120,9 @@ export const VideoDetail = () => {
           )}
         </ul>
       </div>
+      </Col>
     </Row>
+    </Container>
   );
 };
 

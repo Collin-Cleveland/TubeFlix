@@ -13,6 +13,10 @@ import { getEntities as getVideoUsers } from 'app/entities/video-user/video-user
 import { IVideo } from 'app/shared/model/video.model';
 import { getEntity, updateEntity, createEntity, reset } from './video.reducer';
 
+import uploadVideo from 'app/modules/uploadVideo/uploadVideo';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
+
 export const VideoUpdate = () => {
   const dispatch = useAppDispatch();
 
@@ -67,6 +71,19 @@ export const VideoUpdate = () => {
           uploader: videoEntity?.uploader?.id,
         };
 
+        const { register, handleSubmit } = useForm();
+
+    const onSubmit = async (data) => {
+        const formData = new FormData();
+        formData.append("file", data.file[0]);
+
+        const res = await fetch("/fileupload", {
+            method: "POST",
+            body: formData,
+        }).then((res) => res.json());
+        alert(JSON.stringify(`${res.message}, status: ${res.status}`));
+    };
+
   return (
     <div>
 
@@ -77,7 +94,14 @@ export const VideoUpdate = () => {
         <body>
             <div>
                 <div><h2>File Upload to S3</h2></div>
-                <div>
+                <div className="App">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <input type="file" {...register("file")} />
+
+                    <input type="submit" />
+                </form>
+            </div>
+                {/* <div>
                     <form action="upload" method="post" encType="multipart/form-data">
                         <p>
                             Title:
@@ -96,7 +120,7 @@ export const VideoUpdate = () => {
                             <button type="submit">Submit</button>
                         </p>
                     </form>
-                </div>
+                </div> */}
             </div>
         </body>
 

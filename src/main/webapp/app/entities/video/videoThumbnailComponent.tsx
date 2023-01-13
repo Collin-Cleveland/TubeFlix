@@ -17,11 +17,11 @@ const VideoThumbnail = props => {
     // Construct the thumbnail image URL
     const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
-  return <img width="300" src={thumbnailUrl} alt="Video thumbnail" />;
+  return <img width="600" src={thumbnailUrl} alt="Video thumbnail" />;
   }
   else {
     return (
-      <img width="300" src="content/images/thumbnail-default.jpeg" alt="Default Video thumbnail" />
+      <img width="600" src="content/images/thumbnail-default.jpeg" alt="Default Video thumbnail" />
 )};
 };
 

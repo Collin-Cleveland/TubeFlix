@@ -1,13 +1,11 @@
 package rocks.zipcode.web.rest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import rocks.zipcode.AWSs3.AWSs3UploadObj;
 import rocks.zipcode.AWSs3.GetS3ObjectPresignedUrl;
-import software.amazon.awssdk.services.s3.presigner.S3Presigner;
-import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -15,6 +13,8 @@ import java.util.List;
 public class GetS3Controller {
     @Autowired
     GetS3ObjectPresignedUrl pUrl;
+    @Autowired
+    AWSs3UploadObj awSs3UploadObj;
 
     @GetMapping("/test")
     public String designer() {
@@ -31,5 +31,19 @@ public class GetS3Controller {
     public List<String> getListObjectKeys() {
         return pUrl.getLstPresignedUrl();
     }
+    @PostMapping("/fileupload")
+    public void singleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam String description) {
 
+        try {
+            byte[] bytes = file.getBytes();
+            String name = file.getOriginalFilename();
+            String desc2 = description;
+
+            // Put the MP4 file into an Amazon S3 bucket.
+            awSs3UploadObj.uploadFile(bytes, name, desc2);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

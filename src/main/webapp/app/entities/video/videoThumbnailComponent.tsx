@@ -1,7 +1,4 @@
 import React from 'react';
-import VideoImageThumbnail from 'react-video-thumbnail-image'; // use npm published version
-
-
 
 const VideoThumbnail = props => {
   const { videoLink } = props;
@@ -21,7 +18,10 @@ const VideoThumbnail = props => {
   }
   else {
     return (
-      <img width="600" src="content/images/thumbnail-default.jpeg" alt="Default Video thumbnail" />
+      <video width="600" >
+        <source src={videoLink} />
+      </video>
+      // <img width="600" src="content/images/thumbnail-default.jpeg" alt="Default Video thumbnail" />
 )};
 };
 

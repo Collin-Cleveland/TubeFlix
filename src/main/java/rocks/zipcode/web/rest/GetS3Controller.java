@@ -32,7 +32,7 @@ public class GetS3Controller {
         return pUrl.getLstPresignedUrl();
     }
     @PostMapping("/fileupload")
-    public void singleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam String description) {
+    public void singleFileUpload(@RequestParam MultipartFile file, @RequestParam String description) {
 
         try {
             byte[] bytes = file.getBytes();

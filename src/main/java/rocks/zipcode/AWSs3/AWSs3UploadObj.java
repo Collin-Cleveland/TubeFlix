@@ -48,7 +48,7 @@ public class AWSs3UploadObj {
                 .putObjectRequest(objectRequest)
                 .build();
             PresignedPutObjectRequest presignedRequest = awss3ClientServices.getPresigner().presignPutObject(presignRequest);
-            String myURL = presignedRequest.url().toString();
+            //String myURL = presignedRequest.url().toString();
 
             // Upload content to the Amazon S3 bucket by using this URL.
             URL url = presignedRequest.url();

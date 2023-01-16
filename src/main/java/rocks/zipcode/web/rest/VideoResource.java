@@ -152,6 +152,15 @@ public class VideoResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    //ADDED METHOD
+    // @GetMapping("/videos/user/{id}")
+    // public List<VideoDTO> getAllVideosByUserId(Long id) {
+    //     log.debug("REST request to get a page of Videos");
+    //     //List<VideoDTO> page = videoService.findAllByUser(id);
+    //     //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+    //     return videoService.findAllByUser(id);
+    // }
+
     /**
      * {@code GET  /videos/:id} : get the "id" video.
      *

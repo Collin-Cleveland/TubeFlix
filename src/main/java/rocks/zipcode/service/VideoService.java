@@ -1,5 +1,6 @@
 package rocks.zipcode.service;
 
+import java.util.List;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,6 +88,13 @@ public class VideoService {
         log.debug("Request to get all Videos");
         return videoRepository.findAll(pageable).map(videoMapper::toDto);
     }
+
+    //ADDED METHOD
+    // @Transactional(readOnly = true)
+    // public List<VideoDTO> findAllByUser(Long id) {
+    //     log.debug("Request to get all Videos");
+    //     return videoRepository.findVideosByUserId(id).map(videoMapper::toDto);
+    // }
 
     /**
      * Get one video by id.

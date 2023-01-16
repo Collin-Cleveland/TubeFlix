@@ -1,5 +1,9 @@
 package rocks.zipcode.repository;
 
+import java.util.List;
+
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 import rocks.zipcode.domain.Video;
@@ -9,4 +13,7 @@ import rocks.zipcode.domain.Video;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface VideoRepository extends JpaRepository<Video, Long> {}
+public interface VideoRepository extends JpaRepository<Video, Long> {
+
+    //public List<Video> findVideosByUserId(Long id);
+}

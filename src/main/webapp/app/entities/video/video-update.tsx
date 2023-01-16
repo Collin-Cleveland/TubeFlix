@@ -1,21 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { Button, Row, Col, FormText } from 'reactstrap';
-import { isNumber, Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
+import { Button, Row, Col, Container } from 'reactstrap';
+import { Translate, translate, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { IVideoUser } from 'app/shared/model/video-user.model';
 import { getEntities as getVideoUsers } from 'app/entities/video-user/video-user.reducer';
-import { IVideo } from 'app/shared/model/video.model';
-import { getEntity, updateEntity, createEntity, reset } from './video.reducer';
+import { getEntity, updateEntity, createEntity } from './video.reducer';
 
-import uploadVideo from 'app/modules/uploadVideo/uploadVideo';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
 
 export const VideoUpdate = () => {
   const dispatch = useAppDispatch();
@@ -86,44 +80,7 @@ export const VideoUpdate = () => {
 
   return (
     <div>
-
-      <head>
-        {/* <meta charSet="ISO-8859-1"> */}
-        <title>Spring Boot File Upload to S3</title>
-      </head>
-        <body>
-            <div>
-                <div><h2>File Upload to S3</h2></div>
-                <div className="App">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input type="file" {...register("file")} />
-
-                    <input type="submit" />
-                </form>
-            </div>
-                {/* <div>
-                    <form action="upload" method="post" encType="multipart/form-data">
-                        <p>
-                            Title:
-                            <input type="text" name="title" required/>
-                        </p>
-                        <p>
-                            Description:
-                            <input type="text" name="description"/>
-                        </p>
-                        
-                        <p>
-                            <input type="file" name="file" required />
-                        </p>
-                        
-                        <p>
-                            <button type="submit">Submit</button>
-                        </p>
-                    </form>
-                </div> */}
-            </div>
-        </body>
-
+      <Container>
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="groupProjectApp.video.home.createOrEditLabel" data-cy="VideoCreateUpdateHeading">
@@ -131,8 +88,8 @@ export const VideoUpdate = () => {
           </h2>
         </Col>
       </Row>
-      <Row className="justify-content-center">
-        <Col md="8">
+      <Row>
+        <Col md="6">
           {loading ? (
             <p>Loading...</p>
           ) : (
@@ -213,7 +170,54 @@ export const VideoUpdate = () => {
             </ValidatedForm>
           )}
         </Col>
+        <Col md="6">
+        <head>
+        <title>Spring Boot File Upload to S3</title>
+      </head>
+        <body>
+          <div>
+            <div><h2>File Upload to S3</h2></div>
+            <div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <p>
+                  Title:
+                  <input type="text" name="title" required/>
+                </p>
+                <p>
+                  Description:
+                  <input type="text" name="description"/>
+                </p>
+                <Button><input type="file" {...register("file")} /></Button>
+                <p>
+                  <Button tag={Link} to="/" type="submit">Submit</Button>
+                </p>              
+              </form>
+            </div>
+              {/* <div>
+                  <form action="upload" method="post" encType="multipart/form-data">
+                      <p>
+                          Title:
+                          <input type="text" name="title" required/>
+                      </p>
+                      <p>
+                          Description:
+                          <input type="text" name="description"/>
+                      </p>
+                      
+                      <p>
+                          <input type="file" name="file" required />
+                      </p>
+                      
+                      <p>
+                          <button type="submit">Submit</button>
+                      </p>
+                  </form>
+              </div> */}
+          </div>
+        </body>
+        </Col>
       </Row>
+      </Container>
     </div>
   );
 };

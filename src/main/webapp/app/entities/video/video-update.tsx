@@ -80,6 +80,10 @@ export const VideoUpdate = () => {
         alert(JSON.stringify(`${res.message}, status: ${res.status}`));
     };
 
+    useEffect(() => {
+      window.scrollTo(0, 0)
+    }, [])
+
   return (
     <div>
       <Container>

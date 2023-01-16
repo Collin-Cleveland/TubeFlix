@@ -32,7 +32,7 @@ export const VideoDetail = () => {
   }, []);
 
   useEffect(() => {
-    axios.get(`/api/comments/video/{id}?id=${id}`)
+    axios.get(`/api/comments/video/${id}`)
     .then(response => {
       //console.log(response.data)
       setCommentsByVideoId(response.data)

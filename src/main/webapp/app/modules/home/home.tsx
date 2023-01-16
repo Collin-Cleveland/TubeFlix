@@ -106,7 +106,6 @@ export const Home = () => {
                       <Button tag={Link} to={`/video/${video.id}`} className="button">
                         <VideoThumbnail videoLink = {video.videoLink} />
                       </Button>
-                      <div className="center">{video.description}</div>
                       </div>
                     </td>
                   </tr>
@@ -144,7 +143,6 @@ export const Home = () => {
                       <Button tag={Link} to={`/video/${video.id}`} className="button">
                         <VideoThumbnail videoLink = {video.videoLink} />
                       </Button>
-                      <div className="center">{video.description}</div>
                       </div>
                     </td>
                   </tr>
@@ -174,7 +172,7 @@ export const Home = () => {
           {videoList && videoList.length > 0 ? (
             <Table responsive>
               <tbody>
-                {videoList.slice(videoList.length*(2/3), videoList.length-1).map((video, i) => (
+                {videoList.slice(videoList.length*(2/3), videoList.length).map((video, i) => (
                   <tr key={`entity-${i}`} data-cy="entityTable">
                     <td>
                       <div className="center">
@@ -182,7 +180,6 @@ export const Home = () => {
                       <Button tag={Link} to={`/video/${video.id}`} className="button">
                         <VideoThumbnail videoLink = {video.videoLink} />
                       </Button>
-                      <div className="center">{video.description}</div>
                       </div>
                     </td>
                   </tr>

@@ -11,6 +11,8 @@ import { getEntity, updateEntity, createEntity } from './video.reducer';
 
 import { useForm } from 'react-hook-form';
 
+import './video-update.scss'
+
 export const VideoUpdate = () => {
   const dispatch = useAppDispatch();
 
@@ -171,26 +173,21 @@ export const VideoUpdate = () => {
           )}
         </Col>
         <Col md="6">
-        <head>
-        <title>Spring Boot File Upload to S3</title>
-      </head>
-        <body>
+        <body className='notbackground'>
           <div>
-            <div><h2>File Upload to S3</h2></div>
+            <Row className="justify-content-center">File Upload to S3</Row>
             <div>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <p>
-                  Title:
-                  <input type="text" name="title" required/>
-                </p>
-                <p>
-                  Description:
-                  <input type="text" name="description"/>
-                </p>
-                <Button><input type="file" {...register("file")} /></Button>
-                <p>
-                  <Button tag={Link} to="/" type="submit">Submit</Button>
-                </p>              
+                <div>Title:</div>
+                <input type="text" name="title" required/>
+                <div>Description:</div>
+                <input type="text" name="description"/>
+                <div>&nbsp;</div>
+                <Button color="primary"><input type="file" {...register("file")} /></Button>
+                <div>&nbsp;</div>
+                <Button color="primary" id="save-entity" tag={Link} to="/" type="submit">
+                  <FontAwesomeIcon icon="save" /> Submit
+                </Button>             
               </form>
             </div>
               {/* <div>

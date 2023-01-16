@@ -44,3 +44,14 @@ export const Upload = () => (
     </NavLink>
   </NavItem>
 );
+
+export const Profile = () => (
+  <NavItem>
+    <NavLink tag={Link} to="/video/new" className="d-flex align-items-center">
+      <RiVideoUploadFill/>
+      <span>
+        <div>Upload</div>
+      </span>
+    </NavLink>
+  </NavItem>
+);

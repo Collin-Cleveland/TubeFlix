@@ -81,6 +81,9 @@ export const Home = () => {
     }
   }, [sorting]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     

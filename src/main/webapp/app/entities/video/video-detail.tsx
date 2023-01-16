@@ -48,6 +48,11 @@ export const VideoDetail = () => {
   }));
 
   const videoEntity = useAppSelector(state => state.video.entity);
+  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   return (
     <Container>
     <Row>

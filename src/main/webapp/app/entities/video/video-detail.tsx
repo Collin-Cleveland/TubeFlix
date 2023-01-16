@@ -60,6 +60,7 @@ export const VideoDetail = () => {
               <VideoThumbnail videoLink={videoEntity.videoLink}/>
             </ReactPlayer>
           </dd>
+          <dd>Video #{videoEntity.id}</dd>
           <dt>
             <span id="title">
               <Translate contentKey="groupProjectApp.video.title">Title</Translate>

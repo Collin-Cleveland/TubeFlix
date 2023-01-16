@@ -145,7 +145,7 @@ public class VideoResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of videos in body.
      */
     @GetMapping("/videos")
-    public ResponseEntity<List<VideoDTO>> getAllVideos(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
+    public ResponseEntity<List<VideoDTO>> getAllVideos(Pageable pageable) {
         log.debug("REST request to get a page of Videos");
         Page<VideoDTO> page = videoService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
@@ -154,11 +154,11 @@ public class VideoResource {
 
     //ADDED METHOD
     // @GetMapping("/videos/user/{id}")
-    // public List<VideoDTO> getAllVideosByUserId(Long id) {
+    // public ResponseEntity<List<VideoDTO>> getAllVideosByUserId(@PathVariable Long id) {
     //     log.debug("REST request to get a page of Videos");
-    //     //List<VideoDTO> page = videoService.findAllByUser(id);
-    //     //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-    //     return videoService.findAllByUser(id);
+    //     Page<VideoDTO> page = videoService.findAllByUser(id);
+    //     HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+    //     return ResponseEntity.ok().headers(headers).body(page.getContent());
     // }
 
     /**

@@ -15,5 +15,5 @@ import rocks.zipcode.domain.Video;
 @Repository
 public interface VideoRepository extends JpaRepository<Video, Long> {
 
-    //public List<Video> findVideosByUserId(Long id);
+    // public Page<Video> findByUploaderId(Long id);
 }

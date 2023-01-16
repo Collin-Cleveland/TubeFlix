@@ -1,7 +1,10 @@
 package rocks.zipcode.service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -91,9 +94,10 @@ public class VideoService {
 
     //ADDED METHOD
     // @Transactional(readOnly = true)
-    // public List<VideoDTO> findAllByUser(Long id) {
+    // public Page<VideoDTO> findAllByUser(Pageable pageable, Long id) {
     //     log.debug("Request to get all Videos");
-    //     return videoRepository.findVideosByUserId(id).map(videoMapper::toDto);
+    //     Page<Video> temp = videoRepository.findAll(pageable);
+    //     return temp.findByUploaderId(id).map(videoMapper::toDto);
     // }
 
     /**

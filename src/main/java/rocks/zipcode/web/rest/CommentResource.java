@@ -143,7 +143,7 @@ public class CommentResource {
 
     //ADDED COMMENTS BY VIDEO ID
     @GetMapping("/comments/video/{id}")
-    public List<CommentDTO> getAllCommentsByVideoId(Long id) {
+    public List<CommentDTO> getAllCommentsByVideoId(@PathVariable Long id) {
         log.debug("REST request to get all Comments");
         return commentService.findAllCommentsByVideoId(id);
     }

@@ -52,6 +52,11 @@ export const VideoDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  const getUserNameById = (id: number) => {
+    if (id === 1) {return 'John Doe'}
+    if (id === 2) {return 'Grace Smith'}
+  }
   
   return (
     <Container>
@@ -86,10 +91,10 @@ export const VideoDetail = () => {
           <dd>
             {videoEntity.uploadDate ? <TextFormat value={videoEntity.uploadDate} type="date" format={APP_LOCAL_DATE_FORMAT} /> : null}
           </dd>
-          <dt>
+          {/* <dt>
             <Translate contentKey="groupProjectApp.video.uploader">Uploader</Translate>
           </dt>
-          <dd>{videoEntity.uploader ? videoEntity.uploader.id : ''}</dd>
+          <dd>{videoEntity.uploader ? videoEntity.uploader.id : ''}</dd> */}
         
         <Button tag={Link} to="/video" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" />{' '}
@@ -114,9 +119,16 @@ export const VideoDetail = () => {
               <Box sx={{ width: '100%' }}>
                 <Stack key={comment.id} mt={2} className="btn btn-primary jh-create-entity">
                   <Item>
-                    <div>User: {comment.videoUser.id}</div>
-                    <div>Comment: {comment.body}</div>
-                    <div>Date: {comment.commentDate}</div>
+                    <Container>
+                      <Row>
+                        <Col>
+                        <div>{getUserNameById(comment.videoUser.id)} on {comment.commentDate}</div>
+                        </Col>
+                        <Col>
+                        <div style={{ fontWeight: 'bold' }}>{comment.body}</div>
+                        </Col>
+                      </Row>
+                    </Container>
                   </Item>
                 </Stack>
               </Box>

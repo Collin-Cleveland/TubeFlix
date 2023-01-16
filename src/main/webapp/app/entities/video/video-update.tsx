@@ -67,22 +67,22 @@ export const VideoUpdate = () => {
           uploader: videoEntity?.uploader?.id,
         };
 
-        const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm();
 
-    const onSubmit = async (data) => {
-        const formData = new FormData();
-        formData.append("file", data.file[0]);
+  const onSubmit = async (data) => {
+      const formData = new FormData();
+      formData.append("file", data.file[0]);
 
-        const res = await fetch("/fileupload", {
-            method: "POST",
-            body: formData,
-        }).then((res) => res.json());
-        alert(JSON.stringify(`${res.message}, status: ${res.status}`));
-    };
+      const res = await fetch("api/fileupload", {
+          method: "POST",
+          body: formData,
+      }).then((res) => res.json());
+      alert(JSON.stringify(`${res.message}, status: ${res.status}`));
+  };
 
-    useEffect(() => {
-      window.scrollTo(0, 0)
-    }, [])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div>
@@ -184,12 +184,12 @@ export const VideoUpdate = () => {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div>Title:</div>
                 <input type="text" name="title" required/>
-                <div>Description:</div>
-                <input type="text" name="description"/>
+                {/* <div>Description:</div>
+                <input type="text" name="description"/> */}
                 <div>&nbsp;</div>
                 <Button color="primary"><input type="file" {...register("file")} /></Button>
                 <div>&nbsp;</div>
-                <Button color="primary" id="save-entity" tag={Link} to="/" type="submit">
+                <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                   <FontAwesomeIcon icon="save" /> Submit
                 </Button>             
               </form>

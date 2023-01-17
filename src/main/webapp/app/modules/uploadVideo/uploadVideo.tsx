@@ -18,7 +18,7 @@ const uploadVideo = () => {
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
-      alert(response)
+      alert("Uploaded Success!")
     } catch(error) {
       console.log(error)
     }

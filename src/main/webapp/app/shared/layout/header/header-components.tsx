@@ -6,7 +6,6 @@ import { NavLink as Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { RiVideoUploadFill } from 'react-icons/ri';
-import { Fab } from '@mui/material';
 
 
 export const BrandIcon = props => (
@@ -33,16 +32,16 @@ export const Home = () => (
     </NavLink>
   </NavItem>
 );
-export const UploadVideo = () => (
-  <NavItem>
-    <NavLink tag={Link} to="/uploadVideo" className="d-flex align-items-center">
-      <RiVideoUploadFill/>
-      <span>
-        <div>UploadVideo</div>
-      </span>
-    </NavLink>
-  </NavItem>
-);
+// export const UploadVideo = () => (
+//   <NavItem>
+//     <NavLink tag={Link} to="/uploadVideo" className="d-flex align-items-center">
+//       <RiVideoUploadFill/>
+//       <span>
+//         <div>UploadVideo</div>
+//       </span>
+//     </NavLink>
+//   </NavItem>
+// );
 
 export const Upload = () => (
   <NavItem>

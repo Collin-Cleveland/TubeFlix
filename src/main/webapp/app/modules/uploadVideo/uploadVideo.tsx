@@ -4,13 +4,13 @@ import axios from 'axios';
 
 const uploadVideo = () => {
   // a local state to store the currently selected file.
-  const [selectedFile, setSelectedFile] = React.useState(null);
+  const [file, setFile] = React.useState(null);
 
   const handleSubmit = async(event) => {
     event.preventDefault()
     const formData = new FormData();
-    formData.append("selectedFile", selectedFile);
-    alert(formData)
+    formData.append("file", file);
+
     try {
       const response = await axios({
         method: "post",
@@ -18,21 +18,28 @@ const uploadVideo = () => {
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
+      alert(response)
     } catch(error) {
       console.log(error)
     }
   }
 
   const handleFileSelect = (event) => {
-    setSelectedFile(event.target.files[0])
+    setFile(event.target.files[0])
 
   }
 
   return (
+
     <form onSubmit={handleSubmit}>
+     <div>Description</div>
+                <input type="text" name="description" required/>
+                <div>
       <input type="file" onChange={handleFileSelect}/>
       <input type="submit" value="Upload File" name="file" id="file"/>
-      <div>test</div>
+</div>
+
+
     </form>
   )
 };

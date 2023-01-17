@@ -32,12 +32,12 @@ public class GetS3Controller {
         return pUrl.getLstPresignedUrl();
     }
     @PostMapping("/fileupload")
-    public void singleFileUpload(@RequestParam MultipartFile file, @RequestParam String description) {
+    public void singleFileUpload(@RequestParam MultipartFile file) {
 
         try {
             byte[] bytes = file.getBytes();
             String name = file.getOriginalFilename();
-            String desc2 = description;
+            String desc2 = "Uploaded from Local machine";
 
             // Put the MP4 file into an Amazon S3 bucket.
             awSs3UploadObj.uploadFile(bytes, name, desc2);

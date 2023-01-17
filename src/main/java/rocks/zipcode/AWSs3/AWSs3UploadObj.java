@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rocks.zipcode.domain.Video;
 import rocks.zipcode.repository.VideoRepository;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
@@ -29,6 +30,8 @@ public class AWSs3UploadObj {
     VideoRepository videoRepository;
     @Autowired
     AWSS3ClientServices awss3ClientServices;
+    @Autowired
+    GetS3ObjectPresignedUrl getS3ObjectPresignedUrl;
     private static final Logger LOG = LoggerFactory.getLogger(AWSs3UploadObj.class);
     String bucketName="tubeflix";
 
@@ -61,6 +64,16 @@ public class AWSs3UploadObj {
             connection.getOutputStream().write(bytes);
             connection.getResponseCode();
            // System.out.println("HTTP response code is " + connection.getResponseCode());
+
+            //Generate Presigned URL for the inserted video file
+            //Upload video entity to mySql
+            Video video = new Video()
+                .videoLink(getS3ObjectPresignedUrl.getPresignedUrl(fileName))
+                .title(fileName)
+                .description("Uploaded from computer");
+
+            videoRepository.save(video);
+
 
         } catch (S3Exception | IOException e) {
             e.getStackTrace();

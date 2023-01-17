@@ -9,9 +9,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntities as getVideoUsers } from 'app/entities/video-user/video-user.reducer';
 import { getEntity, updateEntity, createEntity } from './video.reducer';
 
-import { useForm } from 'react-hook-form';
-
 import './video-update.scss'
+import axios from 'axios';
 
 export const VideoUpdate = () => {
   const dispatch = useAppDispatch();
@@ -67,32 +66,45 @@ export const VideoUpdate = () => {
           uploader: videoEntity?.uploader?.id,
         };
 
-  const { register, handleSubmit } = useForm();
-
-  const onSubmit = async (data) => {
-      const formData = new FormData();
-      formData.append("file", data.file[0]);
-
-      const res = await fetch("api/fileupload", {
-          method: "POST",
-          body: formData,
-      }).then((res) => res.json());
-      alert(JSON.stringify(`${res.message}, status: ${res.status}`));
-  };
-
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  const [file, setFile] = React.useState(null);
+
+  const handleSubmit = async(event) => {
+    event.preventDefault()
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios({
+        method: "post",
+        url: "/api/fileupload",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      alert("Uploaded Success!")
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  const handleFileSelect = (event) => {
+    setFile(event.target.files[0])
+
+  }
 
   return (
     <div>
       <Container>
       <Row className="justify-content-center">
-        <Col md="8">
+        <Col md="6">
           <h2 id="groupProjectApp.video.home.createOrEditLabel" data-cy="VideoCreateUpdateHeading">
-            <Translate contentKey="groupProjectApp.video.home.createOrEditLabel">Create or edit a Video</Translate>
+            <div>Upload YouTube Video</div>
           </h2>
         </Col>
+        <Col><h2>Upload mp4 Video File</h2></Col>
       </Row>
       <Row>
         <Col md="6">
@@ -177,45 +189,19 @@ export const VideoUpdate = () => {
           )}
         </Col>
         <Col md="6">
-        <body className='notbackground'>
-          <div>
-            <Row className="justify-content-center">File Upload to S3</Row>
+          <body className='notbackground'>
+          
+          <form onSubmit={handleSubmit}>
+              <div>&nbsp;</div>
             <div>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div>Title:</div>
-                <input type="text" name="title" required/>
-                {/* <div>Description:</div>
-                <input type="text" name="description"/> */}
-                <div>&nbsp;</div>
-                <Button color="primary"><input type="file" {...register("file")} /></Button>
-                <div>&nbsp;</div>
-                <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" /> Submit
-                </Button>             
-              </form>
+              <input type="file" onChange={handleFileSelect} className="btn btn-primary jh-create-entity"/>
             </div>
-              {/* <div>
-                  <form action="upload" method="post" encType="multipart/form-data">
-                      <p>
-                          Title:
-                          <input type="text" name="title" required/>
-                      </p>
-                      <p>
-                          Description:
-                          <input type="text" name="description"/>
-                      </p>
-                      
-                      <p>
-                          <input type="file" name="file" required />
-                      </p>
-                      
-                      <p>
-                          <button type="submit">Submit</button>
-                      </p>
-                  </form>
-              </div> */}
-          </div>
-        </body>
+            &nbsp;
+            <div>
+            <input type="submit" value="Upload File" name="file" id="file" className="btn btn-primary jh-create-entity"/>
+            </div>
+          </form>
+          </body>
         </Col>
       </Row>
       </Container>

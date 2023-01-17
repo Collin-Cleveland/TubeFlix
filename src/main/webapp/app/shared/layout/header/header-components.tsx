@@ -33,6 +33,16 @@ export const Home = () => (
     </NavLink>
   </NavItem>
 );
+export const UploadVideo = () => (
+  <NavItem>
+    <NavLink tag={Link} to="/uploadVideo" className="d-flex align-items-center">
+      <RiVideoUploadFill/>
+      <span>
+        <div>UploadVideo</div>
+      </span>
+    </NavLink>
+  </NavItem>
+);
 
 export const Upload = () => (
   <NavItem>

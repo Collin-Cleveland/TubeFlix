@@ -57,6 +57,20 @@ export const VideoDetail = () => {
     if (id === 1) {return 'John Doe'}
     if (id === 2) {return 'Grace Smith'}
   }
+  const getFakeUserNameById = (id: number) => {
+    if (id === 1) {return 'John Doe'}
+    if (id === 2) {return 'Grace Smith'}
+    if (id === 3) {return 'Jessica Collins'}
+    if (id === 4) {return 'Bobby Johnson'}
+    if (id === 5) {return 'Eric Snafu'}
+    if (id === 6) {return 'Josh Cunningham'}
+    if (id === 7) {return 'Dan Brenneman'}
+    if (id === 8) {return 'Joe Elk'}
+    if (id === 9) {return 'Robert Causic'}
+    if (id === 10) {return 'Linda White'}
+    if (id === 11) {return 'Pam McCarthy'}
+    if (id === 12) {return 'Fred Ali'}
+  }
   
   return (
     <Container>
@@ -116,16 +130,16 @@ export const VideoDetail = () => {
         <ul>
           {commentsByVideoId.length !== 0 ? (
             commentsByVideoId.map((comment) => (
-              <Box sx={{ width: '100%' }}>
-                <Stack key={comment.id} mt={2} className="btn btn-primary jh-create-entity">
+              <Box sx={{ width: '90%', border: 1, borderColor: 'primary.main', m: 2 }}>
+                <Stack key={comment.id} mt={2}>
                   <Item>
                     <Container>
                       <Row>
                         <Col>
-                        <div>{getUserNameById(comment.videoUser.id)} on {comment.commentDate}</div>
+                        <div style={{ fontWeight: 'bold', fontSize: 20 }}>{comment.body}</div>
                         </Col>
                         <Col>
-                        <div style={{ fontWeight: 'bold' }}>{comment.body}</div>
+                        <div>{getFakeUserNameById(comment.id)} on {comment.commentDate}</div>
                         </Col>
                       </Row>
                     </Container>
